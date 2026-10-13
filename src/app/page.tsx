@@ -1,0 +1,76 @@
+import Link from "next/link";
+import { getContent } from "@/lib/store";
+import { Logo } from "@/components/Icons";
+import { DailyEncouragement } from "@/components/DailyEncouragement";
+import { BookIcon, ChurchIcon, FriendIcon, IdeaIcon, LeafIcon, LifebuoyIcon, PrayIcon, ShieldIcon } from "@/components/Icons";
+
+export default async function Home() {
+  const { encouragements, settings } = await getContent();
+
+  return (
+    <>
+      <section className="hero">
+        <div className="container hero-inner">
+          <Logo size={128} decorative={false} />
+          <div>
+            <p className="eyebrow">{settings.appName}</p>
+            <h1>Support for those who serve.</h1>
+            <p>Prayer, encouragement, and a quick way to reach your chaplain and the people you trust.</p>
+          </div>
+        </div>
+      </section>
+
+      <div className="container">
+        <DailyEncouragement items={encouragements} />
+
+        <h2 className="section-title" id="reach-heading">Reach someone</h2>
+        <nav className="reach-grid" aria-labelledby="reach-heading">
+          <Link href="/reach/chaplain" className="reach-btn">
+            <span className="icon"><ShieldIcon size={26} /></span>
+            <span><span className="t">Reach a Chaplain</span><span className="s">Call or text your department chaplain</span></span>
+          </Link>
+          <Link href="/reach/pastor" className="reach-btn">
+            <span className="icon"><ChurchIcon size={26} /></span>
+            <span><span className="t">Reach My Pastor</span><span className="s">Your own pastor, saved on this device</span></span>
+          </Link>
+          <Link href="/reach/friend" className="reach-btn">
+            <span className="icon"><FriendIcon size={26} /></span>
+            <span><span className="t">Reach a Friend</span><span className="s">Someone you trust, saved on this device</span></span>
+          </Link>
+        </nav>
+
+        <h2 className="section-title" id="more-heading">Find a moment</h2>
+        <nav className="tile-grid" aria-labelledby="more-heading">
+          <Link href="/prayer" className="tile">
+            <PrayIcon className="icon" size={28} />
+            <span><span className="t">Prayer</span><span className="s">Send a private prayer request</span></span>
+          </Link>
+          <Link href="/pocket-chaplain" className="tile">
+            <BookIcon className="icon" size={28} />
+            <span><span className="t">Pocket Chaplain</span><span className="s">Prayers, scripture &amp; encouragement</span></span>
+          </Link>
+          <Link href="/share-an-idea" className="tile">
+            <IdeaIcon className="icon" size={28} />
+            <span><span className="t">Share an Idea</span><span className="s">Suggest a prayer, topic, or improvement</span></span>
+          </Link>
+          <Link href="/pocket-chaplain/take-a-moment" className="tile">
+            <LeafIcon className="icon" size={28} />
+            <span><span className="t">Take a moment</span><span className="s">A one-minute pause and prayer</span></span>
+          </Link>
+          <Link href="/resources" className="tile">
+            <LifebuoyIcon className="icon" size={28} />
+            <span><span className="t">Resources</span><span className="s">Peer support, counseling &amp; more</span></span>
+          </Link>
+        </nav>
+
+        <section className="notice about-box" aria-label="About this app">
+          <p>
+            <strong>{settings.appName}</strong> helps you reach a real chaplain and other trusted people. It is here to
+            support the chaplain&apos;s ministry, not replace it. It does not replace personal chaplain care, pastoral
+            care, friendship, counseling, or emergency services. <Link href="/about">Learn more</Link>.
+          </p>
+        </section>
+      </div>
+    </>
+  );
+}

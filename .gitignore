@@ -1,0 +1,8 @@
+node_modules
+.next
+next-env.d.ts
+*.tsbuildinfo
+.env
+.env.local
+# Prototype data file: contains submissions. Never commit it.
+data/store.json
