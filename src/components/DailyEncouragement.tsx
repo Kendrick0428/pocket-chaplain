@@ -1,18 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
+import { dailyIndex } from "@/lib/daily";
 import type { Encouragement } from "@/lib/types";
-
-function dayIndex(count: number, date = new Date()) {
-  const start = new Date(date.getFullYear(), 0, 0);
-  const day = Math.floor((date.getTime() - start.getTime()) / 86_400_000);
-  return count ? day % count : 0;
-}
 
 /** Picks the same encouragement for everyone on a given (local) day. */
 export function DailyEncouragement({ items }: { items: Encouragement[] }) {
   const [i, setI] = useState<number | null>(null);
-  useEffect(() => setI(dayIndex(items.length)), [items.length]);
+  useEffect(() => setI(dailyIndex(items.length)), [items.length]);
 
   if (!items.length) return null;
   const item = items[i ?? 0];
@@ -24,6 +20,9 @@ export function DailyEncouragement({ items }: { items: Encouragement[] }) {
         <p style={{ margin: 0 }}>{item.text}</p>
         {item.reference && <cite>{item.reference}</cite>}
       </blockquote>
+      <p className="small daily-more">
+        <Link href="/reminder">Get this each day</Link>
+      </p>
     </section>
   );
 }

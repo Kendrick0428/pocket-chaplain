@@ -10,6 +10,7 @@ const NAV = [
   { href: "/reach/chaplain", label: "Reach a Chaplain" },
   { href: "/pocket-chaplain", label: "Pocket Chaplain" },
   { href: "/prayer", label: "Prayer" },
+  { href: "/family", label: "Families" },
   { href: "/resources", label: "Resources" },
   { href: "/privacy", label: "Privacy" },
 ];

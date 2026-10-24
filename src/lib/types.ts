@@ -4,6 +4,7 @@ export const TOPICS = [
   { id: "family", label: "Family challenges" },
   { id: "burnout", label: "Burnout & exhaustion" },
   { id: "recovery", label: "Fear, uncertainty & recovery" },
+  { id: "families", label: "For spouses & families" },
 ] as const;
 
 export type TopicId = (typeof TOPICS)[number]["id"];
@@ -127,6 +128,24 @@ export interface SiteContent {
   resources: Resource[];
 }
 
+/**
+ * A browser's anonymous push address for the optional daily reminder.
+ * It identifies a device's browser, not a person, and is never shown in the admin area.
+ */
+export interface PushSubscriptionRecord {
+  endpoint: string;
+  p256dh: string;
+  auth: string;
+  /** Local hour (0–23) the person chose. */
+  hour: number;
+  /** IANA time zone, e.g. "America/Chicago". */
+  tz: string;
+  /** Local date (YYYY-MM-DD) of the last reminder sent, so nobody gets two in a day. */
+  lastSentOn: string | null;
+  createdAt: string;
+}
+
 export interface Store extends SiteContent {
   submissions: Submission[];
+  pushSubscriptions: PushSubscriptionRecord[];
 }

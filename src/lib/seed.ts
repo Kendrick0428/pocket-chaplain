@@ -94,6 +94,22 @@ export const seedContent: SiteContent = {
       body: "Others have walked this road and found their way through. Reaching out is not a sign that something is wrong with you. It is how strong people stay strong." },
     { id: "l22", type: "scripture", topics: ["recovery", "stress"], title: "The Lord is my shepherd", reference: "Psalm 23:1–4",
       body: "The Lord is my shepherd; I shall not want. He maketh me to lie down in green pastures: he leadeth me beside the still waters. He restoreth my soul... Yea, though I walk through the valley of the shadow of death, I will fear no evil: for thou art with me." },
+
+    // For spouses & families
+    { id: "f1", type: "prayer", topics: ["families"], title: "A prayer while they're on shift", reference: "",
+      body: "Lord, I place the one I love in Your hands today. Go with them on every call. Give them clear thinking, good partners, and safe roads. Quiet my worry while I wait, and bring them home to us. Amen." },
+    { id: "f2", type: "reflection", topics: ["families", "family"], title: "When they come home quiet", reference: "",
+      body: "Some days your officer walks in with little to say. Silence isn't always distance; sometimes it's what a hard shift leaves behind. A simple \"I'm glad you're home\" and a little space can mean a lot.\n\nWhen the quiet lasts for days, or you're worried, gently name what you see and suggest reaching out together to the chaplain or your pastor." },
+    { id: "f3", type: "reflection", topics: ["families"], title: "Talking with children about a parent's job", reference: "",
+      body: "Children notice more than we think. Keep it simple and honest for their age: \"Mom helps people who are having a really bad day.\" Let them ask questions, and it's okay to say \"I don't know.\"\n\nRoutines help kids feel safe when schedules change. A goodnight call, a note in a lunchbox, or a special breakfast after night shift can become something they count on." },
+    { id: "f4", type: "prayer", topics: ["families"], title: "A prayer for our children", reference: "",
+      body: "Father, watch over our children. When a parent misses a game, a holiday, or a bedtime, fill that space with Your love. Give them peace instead of fear, and help them be proud of the one who serves. Amen." },
+    { id: "f5", type: "scripture", topics: ["families"], title: "He shall give his angels charge over thee", reference: "Psalm 91:11",
+      body: "For he shall give his angels charge over thee, to keep thee in all thy ways." },
+    { id: "f6", type: "encouragement", topics: ["families"], title: "You serve too", reference: "",
+      body: "Spouses, partners, parents, and children carry this work in their own way: the late dinners, the missed holidays, the waiting. Your care is part of what keeps your officer going. You deserve support too, and the chaplain is here for you as well." },
+    { id: "f7", type: "scripture", topics: ["families"], title: "A blessing for your home", reference: "Numbers 6:24–26",
+      body: "The Lord bless thee, and keep thee: The Lord make his face shine upon thee, and be gracious unto thee: The Lord lift up his countenance upon thee, and give thee peace." },
   ],
 
   resources: [
