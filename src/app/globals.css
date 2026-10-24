@@ -438,3 +438,16 @@ input:focus, select:focus, textarea:focus { border-color: var(--blue-500); }
 .suggest li + li { margin-top: 6px; }
 .history { list-style: none; padding: 0; margin: 0 0 12px; }
 .history li { padding: 6px 0; border-bottom: 1px solid var(--border); }
+
+/* ---------- Department badge & contact ---------- */
+.hero-logos { display: flex; align-items: center; gap: 16px; flex: none; }
+.hero-logos .dept-badge { object-fit: contain; filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.35)); }
+@media (max-width: 560px) { .hero-logos .dept-badge { width: 84px; height: 84px; } }
+.dept-card { display: flex; gap: 16px; align-items: flex-start; }
+.dept-card img { object-fit: contain; flex: none; }
+.dept-card .label { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); font-weight: 600; margin-bottom: 4px; }
+.dept-card h2 { margin-bottom: 6px; }
+.dept-card .addr { white-space: pre-line; margin-bottom: 4px; }
+.badge-upload { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.badge-upload img { object-fit: contain; border: 1px solid var(--border); border-radius: 10px; background: var(--surface-2); padding: 4px; }
+.badge-empty { width: 96px; height: 96px; display: grid; place-items: center; border: 2px dashed var(--border); border-radius: 10px; color: var(--text-muted); font-size: 0.85rem; }

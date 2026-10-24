@@ -152,15 +152,32 @@ function done(paths: string[]): AdminState {
   return { ok: true, message: "Saved." };
 }
 
+// Raster images only (never SVG, which can carry scripts). The browser resizes the badge before upload.
+const LOGO_RE = /^data:image\/(?:png|jpeg|webp);base64,[A-Za-z0-9+/]+=*$/;
+const MAX_LOGO = 300_000;
+
 export async function saveSettings(_prev: AdminState, fd: FormData): Promise<AdminState> {
   await requireAdmin();
+  const logo = str(fd.get("departmentLogo"), MAX_LOGO + 1);
+  if (logo && (logo.length > MAX_LOGO || !LOGO_RE.test(logo))) {
+    return { ok: false, error: "The badge image couldn't be used. Please try a PNG or JPEG under 2 MB." };
+  }
+  const website = str(fd.get("departmentWebsite"), 300);
+  if (website && !/^https?:\/\//i.test(website)) {
+    return { ok: false, error: "The website should start with https://" };
+  }
   const settings: Settings = {
     appName: str(fd.get("appName"), 80) || "The Pocket Chaplain",
     departmentName: str(fd.get("departmentName"), 120),
+    departmentLogo: logo,
+    departmentAddress: str(fd.get("departmentAddress"), 300),
+    departmentPhone: str(fd.get("departmentPhone"), 30),
+    departmentEmail: str(fd.get("departmentEmail"), 120),
+    departmentWebsite: website,
     prototypeMode: fd.get("prototypeMode") === "on",
   };
   await updateContent("settings", settings);
-  return done(["/", "/admin/settings"]);
+  return done(["/", "/about", "/admin/settings"]);
 }
 
 export async function saveChaplain(_prev: AdminState, fd: FormData): Promise<AdminState> {

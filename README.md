@@ -41,7 +41,7 @@ cp .env.example .env.local   # then edit both values
 | Share an Idea | `/share-an-idea` | Anonymous option, confirmation on submit |
 | Resources | `/resources` | Chaplain, peer, grief, counseling, family, crisis |
 | Privacy / About | `/privacy`, `/about` | Plain-language privacy notice; what the app is and isn't |
-| Admin | `/admin` | Review/mark/archive/delete submissions; edit chaplain contact, encouragements, library, resources, department name, prototype banner |
+| Admin | `/admin` | Review/mark/archive/delete submissions; edit chaplain contact, encouragements, library, resources, department name, badge and contact details, prototype banner |
 
 Call and Text use `tel:` and `sms:` links, which open the phone's own dialer or messages app; nothing is dialed or sent automatically. The 911/988 notice appears in the footer of every page.
 
@@ -49,7 +49,7 @@ Call and Text use `tel:` and `sms:` links, which open the phone's own dialer or 
 
 Everything in `[square brackets]` is a placeholder and is highlighted on screen. Replace them from the admin area:
 
-- **Settings:** department name
+- **Settings:** department name, plus an optional department badge (shown beside The Pocket Chaplain logo) and precinct/office address, phone, email and website (shown in a "Your department" box on Home and About)
 - **Chaplain contact:** name, call/text numbers, availability
 - **Resources:** department chaplain program, peer support team, EAP, local grief group, counselor, family network. COPLINE, 988, and 911 are filled in; verify before launch.
 - **Privacy page:** privacy contact and "last updated" date (in `src/app/privacy/page.tsx`)

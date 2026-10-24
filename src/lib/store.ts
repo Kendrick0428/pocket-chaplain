@@ -37,6 +37,7 @@ async function sbGetContent(): Promise<SiteContent> {
       (content as unknown as Record<string, unknown>)[row.key] = row.value;
     }
   }
+  content.settings = { ...seedContent.settings, ...content.settings };
   return content;
 }
 
@@ -137,7 +138,9 @@ let writeQueue: Promise<unknown> = Promise.resolve();
 async function readStore(): Promise<Store> {
   try {
     const parsed = JSON.parse(await fs.readFile(STORE_FILE, "utf8")) as Partial<Store>;
-    return { ...structuredClone(seedContent), submissions: [], pushSubscriptions: [], ...parsed } as Store;
+    const store = { ...structuredClone(seedContent), submissions: [], pushSubscriptions: [], ...parsed } as Store;
+    store.settings = { ...seedContent.settings, ...store.settings };
+    return store;
   } catch (err: unknown) {
     if ((err as NodeJS.ErrnoException).code === "ENOENT") {
       return { ...structuredClone(seedContent), submissions: [], pushSubscriptions: [] };

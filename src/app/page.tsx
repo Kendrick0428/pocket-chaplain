@@ -3,6 +3,7 @@ import { getContent } from "@/lib/store";
 import { Logo } from "@/components/Icons";
 import { DailyEncouragement } from "@/components/DailyEncouragement";
 import { InstallPrompt } from "@/components/InstallPrompt";
+import { DepartmentCard } from "@/components/DepartmentCard";
 import {
   BellIcon, BookIcon, CheckInIcon, ChurchIcon, FriendIcon, HomeIcon, IdeaIcon, LeafIcon, LifebuoyIcon, PrayIcon, ShieldIcon, StarIcon,
 } from "@/components/Icons";
@@ -14,7 +15,13 @@ export default async function Home() {
     <>
       <section className="hero">
         <div className="container hero-inner">
-          <Logo size={128} decorative={false} />
+          <div className="hero-logos">
+            <Logo size={128} decorative={false} />
+            {settings.departmentLogo && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={settings.departmentLogo} alt={`${settings.departmentName} badge`} width={112} height={112} className="dept-badge" />
+            )}
+          </div>
           <div>
             <p className="eyebrow">{settings.appName}</p>
             <h1>Support for those who serve.</h1>
@@ -83,6 +90,10 @@ export default async function Home() {
         </nav>
 
         <InstallPrompt />
+
+        <div style={{ marginTop: 24 }}>
+          <DepartmentCard settings={settings} />
+        </div>
 
         <section className="notice about-box" aria-label="About this app">
           <p>

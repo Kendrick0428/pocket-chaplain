@@ -43,6 +43,12 @@ export type IdeaCategory = (typeof IDEA_CATEGORIES)[number]["id"];
 export interface Settings {
   appName: string;
   departmentName: string;
+  /** Optional department badge as a small PNG/JPEG/WebP data URL (resized in the browser before upload). */
+  departmentLogo: string;
+  departmentAddress: string;
+  departmentPhone: string;
+  departmentEmail: string;
+  departmentWebsite: string;
   /** Shown as a banner on every page while forms are not backed by secure storage. */
   prototypeMode: boolean;
 }

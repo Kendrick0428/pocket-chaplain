@@ -11,6 +11,11 @@ export const seedContent: SiteContent = {
   settings: {
     appName: "The Pocket Chaplain",
     departmentName: "[Your Department Name]",
+    departmentLogo: "",
+    departmentAddress: "",
+    departmentPhone: "",
+    departmentEmail: "",
+    departmentWebsite: "",
     prototypeMode: true,
   },
 
