@@ -399,3 +399,55 @@ input:focus, select:focus, textarea:focus { border-color: var(--blue-500); }
   .hero-inner img { width: 96px; height: 96px; }
 }
 .linklike { background: none; border: 0; color: var(--link); text-decoration: underline; font: inherit; cursor: pointer; padding: 0; }
+
+/* ---------- Offline, install, favorites, check-in ---------- */
+.offline-banner {
+  background: var(--navy-700);
+  color: #fff;
+  font-size: 0.9rem;
+  padding: 6px 16px;
+  text-align: center;
+}
+.daily-more { margin: 10px 0 0; }
+.install-card { margin-top: 24px; border-top: 4px solid var(--gold-500); }
+.install-card h2 { font-size: 1.15rem; }
+.tile-grid.two-col { margin-bottom: 8px; }
+@media (min-width: 520px) { .tile-grid.two-col { grid-template-columns: repeat(2, 1fr); } }
+.saved-star { color: var(--gold-500); }
+.save-btn { margin-top: 14px; font-family: var(--font-sans); }
+.save-btn[aria-pressed="true"] { border-color: var(--gold-500); background: var(--gold-100); }
+
+.checkin-q { font-size: 1.2rem; font-weight: 700; margin-bottom: 12px; padding: 0; }
+.mood-grid { display: grid; gap: 10px; grid-template-columns: 1fr; }
+@media (min-width: 560px) { .mood-grid { grid-template-columns: 1fr 1fr; } }
+.mood-btn {
+  display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 2px;
+  min-height: 64px; padding: 12px 16px; text-align: left;
+  background: var(--surface); color: var(--text); font: inherit;
+  border: 2px solid var(--border); border-radius: var(--radius-sm); cursor: pointer;
+}
+.mood-btn:hover { border-color: var(--blue-500); background: var(--surface-2); }
+.mood-btn .t { font-weight: 700; }
+.mood-btn .s { font-size: 0.88rem; color: var(--text-muted); }
+.mood-btn.crisis { border-color: var(--danger-border); background: var(--danger-bg); color: var(--danger-text); }
+.mood-btn.crisis .s { color: var(--danger-text); }
+@media (min-width: 560px) { .mood-btn.crisis { grid-column: 1 / -1; } }
+.crisis-card { border-top: 4px solid var(--danger-text); }
+.checkin-msg { font-family: var(--font-serif); font-size: 1.15rem; margin-top: 12px; }
+.suggest { padding-left: 20px; }
+.suggest li + li { margin-top: 6px; }
+.history { list-style: none; padding: 0; margin: 0 0 12px; }
+.history li { padding: 6px 0; border-bottom: 1px solid var(--border); }
+
+/* ---------- Department badge & contact ---------- */
+.hero-logos { display: flex; align-items: center; gap: 16px; flex: none; }
+.hero-logos .dept-badge { object-fit: contain; filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.35)); }
+@media (max-width: 560px) { .hero-logos .dept-badge { width: 84px; height: 84px; } }
+.dept-card { display: flex; gap: 16px; align-items: flex-start; }
+.dept-card img { object-fit: contain; flex: none; }
+.dept-card .label { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); font-weight: 600; margin-bottom: 4px; }
+.dept-card h2 { margin-bottom: 6px; }
+.dept-card .addr { white-space: pre-line; margin-bottom: 4px; }
+.badge-upload { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.badge-upload img { object-fit: contain; border: 1px solid var(--border); border-radius: 10px; background: var(--surface-2); padding: 4px; }
+.badge-empty { width: 96px; height: 96px; display: grid; place-items: center; border: 2px dashed var(--border); border-radius: 10px; color: var(--text-muted); font-size: 0.85rem; }

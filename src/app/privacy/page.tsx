@@ -30,11 +30,34 @@ export default async function Privacy() {
 
       <section className="card">
         <h2>What stays on your device</h2>
-        <p style={{ marginBottom: 0 }}>
+        <p>
           <strong>Your pastor&apos;s and friend&apos;s names and phone numbers</strong> are saved only in your browser on
           this device. They are never sent to our server, and administrators cannot see them. When you tap Call or Text,
           your phone opens its own call or messages screen; the app doesn&apos;t place calls or send messages, and it
           doesn&apos;t see your conversations.
+        </p>
+        <p>
+          <strong>Your saved prayers and your &ldquo;How am I doing?&rdquo; check-ins</strong> also stay only on this
+          device. Check-in answers are kept only if you turn on &ldquo;Remember my check-ins,&rdquo; and turning it off
+          erases them. Nobody, including the chaplain, is told that you checked in. Your &ldquo;My faith&rdquo; choice is also saved only on this device and is never sent to us.
+        </p>
+        <p style={{ marginBottom: 0 }}>
+          To work without a signal, the app saves copies of its public pages (prayers, resources, and similar) on your
+          device. Administrator pages and anything you send are never saved this way.
+        </p>
+      </section>
+
+      <section className="card">
+        <h2>Daily reminders (optional)</h2>
+        <p>
+          If you turn on the daily reminder, your browser gives us an anonymous delivery address for notifications,
+          along with the time you picked and your time zone. We don&apos;t ask for your name, phone number, or email,
+          and administrators can&apos;t see reminder settings. Turning the reminder off deletes this information. The
+          notification is delivered through your phone or browser maker&apos;s notification service (for example,
+          Apple or Google).
+        </p>
+        <p style={{ marginBottom: 0 }}>
+          The calendar reminder option is created entirely on your device and sends nothing to us.
         </p>
       </section>
 

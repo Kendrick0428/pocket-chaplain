@@ -4,6 +4,7 @@ import "./globals.css";
 import { getContent } from "@/lib/store";
 import { SiteHeader } from "@/components/SiteHeader";
 import { EmergencyNotice } from "@/components/EmergencyNotice";
+import { OfflineSupport } from "@/components/OfflineSupport";
 
 export const dynamic = "force-dynamic";
 
@@ -37,6 +38,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <strong>Prototype preview.</strong> Please don&apos;t enter real personal, case, or incident information yet.
           </div>
         )}
+        <OfflineSupport />
         <SiteHeader appName={settings.appName} departmentName={settings.departmentName} />
         <main id="main" tabIndex={-1}>
           {children}
@@ -48,6 +50,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               <li><Link href="/about">About this app</Link></li>
               <li><Link href="/privacy">Privacy</Link></li>
               <li><Link href="/resources">Resources</Link></li>
+              <li><Link href="/family">For families</Link></li>
+              <li><Link href="/reminder">Daily reminder</Link></li>
               <li><Link href="/share-an-idea">Share an Idea</Link></li>
               <li><Link href="/admin">Administrator sign-in</Link></li>
             </ul>

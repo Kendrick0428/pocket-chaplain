@@ -2,7 +2,11 @@ import Link from "next/link";
 import { getContent } from "@/lib/store";
 import { Logo } from "@/components/Icons";
 import { DailyEncouragement } from "@/components/DailyEncouragement";
-import { BookIcon, ChurchIcon, FriendIcon, IdeaIcon, LeafIcon, LifebuoyIcon, PrayIcon, ShieldIcon } from "@/components/Icons";
+import { InstallPrompt } from "@/components/InstallPrompt";
+import { DepartmentCard } from "@/components/DepartmentCard";
+import {
+  BellIcon, BookIcon, CheckInIcon, ChurchIcon, FriendIcon, HomeIcon, IdeaIcon, LeafIcon, LifebuoyIcon, PrayIcon, ShieldIcon, StarIcon,
+} from "@/components/Icons";
 
 export default async function Home() {
   const { encouragements, settings } = await getContent();
@@ -11,7 +15,13 @@ export default async function Home() {
     <>
       <section className="hero">
         <div className="container hero-inner">
-          <Logo size={128} decorative={false} />
+          <div className="hero-logos">
+            <Logo size={128} decorative={false} />
+            {settings.departmentLogo && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={settings.departmentLogo} alt={`${settings.departmentName} badge`} width={112} height={112} className="dept-badge" />
+            )}
+          </div>
           <div>
             <p className="eyebrow">{settings.appName}</p>
             <h1>Support for those who serve.</h1>
@@ -49,19 +59,41 @@ export default async function Home() {
             <BookIcon className="icon" size={28} />
             <span><span className="t">Pocket Chaplain</span><span className="s">Prayers, scripture &amp; encouragement</span></span>
           </Link>
-          <Link href="/share-an-idea" className="tile">
-            <IdeaIcon className="icon" size={28} />
-            <span><span className="t">Share an Idea</span><span className="s">Suggest a prayer, topic, or improvement</span></span>
-          </Link>
           <Link href="/pocket-chaplain/take-a-moment" className="tile">
             <LeafIcon className="icon" size={28} />
             <span><span className="t">Take a moment</span><span className="s">A one-minute pause and prayer</span></span>
+          </Link>
+          <Link href="/check-in" className="tile">
+            <CheckInIcon className="icon" size={28} />
+            <span><span className="t">How am I doing?</span><span className="s">A quick check-in, private to you</span></span>
+          </Link>
+          <Link href="/family" className="tile">
+            <HomeIcon className="icon" size={28} />
+            <span><span className="t">For families</span><span className="s">Prayers &amp; support for those at home</span></span>
+          </Link>
+          <Link href="/pocket-chaplain?topic=saved" className="tile">
+            <StarIcon className="icon" size={28} />
+            <span><span className="t">My saved prayers</span><span className="s">Favorites, kept on this device</span></span>
+          </Link>
+          <Link href="/reminder" className="tile">
+            <BellIcon className="icon" size={28} />
+            <span><span className="t">Daily reminder</span><span className="s">Today&apos;s encouragement, at your time</span></span>
           </Link>
           <Link href="/resources" className="tile">
             <LifebuoyIcon className="icon" size={28} />
             <span><span className="t">Resources</span><span className="s">Peer support, counseling &amp; more</span></span>
           </Link>
+          <Link href="/share-an-idea" className="tile">
+            <IdeaIcon className="icon" size={28} />
+            <span><span className="t">Share an Idea</span><span className="s">Suggest a prayer, topic, or improvement</span></span>
+          </Link>
         </nav>
+
+        <InstallPrompt />
+
+        <div style={{ marginTop: 24 }}>
+          <DepartmentCard settings={settings} />
+        </div>
 
         <section className="notice about-box" aria-label="About this app">
           <p>
