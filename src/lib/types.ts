@@ -18,6 +18,32 @@ export const ENTRY_TYPES = [
 
 export type EntryType = (typeof ENTRY_TYPES)[number]["id"];
 
+/** Faith tradition of a prayer, reading, or encouragement. "all" means written for everyone, with no religious language. */
+export const TRADITIONS = [
+  { id: "all", label: "Everyone (no religious language)" },
+  { id: "christian", label: "Christian" },
+  { id: "jewish", label: "Jewish" },
+  { id: "muslim", label: "Muslim" },
+  { id: "buddhist", label: "Buddhist" },
+  { id: "hindu", label: "Hindu" },
+] as const;
+
+export type TraditionId = (typeof TRADITIONS)[number]["id"];
+
+/** What a person can pick under "My faith". Saved only on their device. "" shows everything. */
+export const FAITH_CHOICES = [
+  { id: "", label: "Show everything" },
+  { id: "christian", label: "Christian" },
+  { id: "jewish", label: "Jewish" },
+  { id: "muslim", label: "Muslim" },
+  { id: "buddhist", label: "Buddhist" },
+  { id: "hindu", label: "Hindu" },
+  { id: "other", label: "Another faith" },
+  { id: "none", label: "No religious preference" },
+] as const;
+
+export type FaithChoice = (typeof FAITH_CHOICES)[number]["id"];
+
 export const RESOURCE_CATEGORIES = [
   { id: "chaplain", label: "Chaplain support" },
   { id: "peer", label: "Peer support" },
@@ -68,6 +94,7 @@ export interface Encouragement {
   id: string;
   text: string;
   reference: string;
+  tradition: TraditionId;
 }
 
 export interface LibraryEntry {
@@ -77,6 +104,7 @@ export interface LibraryEntry {
   topics: TopicId[];
   body: string;
   reference: string;
+  tradition: TraditionId;
 }
 
 export interface Resource {

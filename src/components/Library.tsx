@@ -1,7 +1,9 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { useFavorites } from "@/lib/device";
+import { useFaith, useFavorites } from "@/lib/device";
+import { matchesFaith } from "@/lib/faith";
+import { FaithPicker } from "./FaithPicker";
 import { ENTRY_TYPES, TOPICS, type LibraryEntry, type TopicId } from "@/lib/types";
 
 const typeLabel = (t: string) => ENTRY_TYPES.find((x) => x.id === t)?.label ?? t;
@@ -24,24 +26,28 @@ export function Library({
     initialTopic === "saved" ? "saved" : TOPICS.some((t) => t.id === initialTopic) ? (initialTopic as TopicId) : "all",
   );
   const favorites = useFavorites();
+  const { faith } = useFaith();
+  const forMe = useMemo(() => entries.filter((e) => matchesFaith(e.tradition, faith)), [entries, faith]);
+  const available = useMemo(() => [...new Set(entries.map((e) => e.tradition))], [entries]);
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return entries.filter((e) => {
+    return forMe.filter((e) => {
       if (topic === "saved" && !favorites.ids.includes(e.id)) return false;
       if (topic !== "all" && topic !== "saved" && !e.topics.includes(topic)) return false;
       if (!q) return true;
       const hay = [e.title, e.body, e.reference, typeLabel(e.type), ...e.topics.map(topicLabel)].join(" ").toLowerCase();
       return q.split(/\s+/).every((w) => hay.includes(w));
     });
-  }, [entries, query, topic, favorites.ids]);
+  }, [forMe, query, topic, favorites.ids]);
 
-  const savedCount = entries.filter((e) => favorites.ids.includes(e.id)).length;
+  const savedCount = forMe.filter((e) => favorites.ids.includes(e.id)).length;
 
   return (
     <>
       {showFilters && (
         <>
+          <FaithPicker available={available} />
           <div className="form-field" style={{ marginBottom: 4 }}>
             <label htmlFor="lib-search">Search prayers, scripture, and reflections</label>
             <input

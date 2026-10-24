@@ -3,6 +3,7 @@ import { promises as fs } from "fs";
 import path from "path";
 import { randomUUID } from "crypto";
 import { seedContent } from "./seed";
+import { traditionOf } from "./faith";
 import { serviceClient, supabaseConfigured } from "./supabase";
 import type { PushSubscriptionRecord, SiteContent, Store, Submission } from "./types";
 
@@ -172,11 +173,20 @@ function mutate<T>(fn: (store: Store) => T | Promise<T>): Promise<T> {
 // Public API
 // ---------------------------------------------------------------------------
 
+/** Fills in fields added after content may already have been saved (e.g. faith tradition). */
+function normalize(content: SiteContent): SiteContent {
+  return {
+    ...content,
+    library: content.library.map((e) => ({ ...e, tradition: traditionOf(e) })),
+    encouragements: content.encouragements.map((e) => ({ ...e, tradition: traditionOf(e) })),
+  };
+}
+
 /** Public content. Never includes submissions. */
 export async function getContent(): Promise<SiteContent> {
-  if (supabaseConfigured) return sbGetContent();
+  if (supabaseConfigured) return normalize(await sbGetContent());
   const { submissions: _omit, pushSubscriptions: _omitPush, ...content } = await readStore();
-  return content;
+  return normalize(content);
 }
 
 export async function updateContent<K extends keyof SiteContent>(key: K, value: SiteContent[K]) {

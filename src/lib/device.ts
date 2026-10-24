@@ -1,6 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { FAITH_CHOICES, type FaithChoice } from "./types";
+
+const FAITH_IDS = FAITH_CHOICES.map((c) => c.id) as string[];
 
 /**
  * Small helpers for things kept ONLY in this browser (favorites, check-ins, reminder time).
@@ -74,4 +77,11 @@ export function isStandalone() {
 export function isIOS() {
   const ua = navigator.userAgent;
   return /iPhone|iPad|iPod/.test(ua) || (ua.includes("Macintosh") && navigator.maxTouchPoints > 1);
+}
+
+/** The person's "My faith" choice. Saved only on this device; never sent to the server. */
+export function useFaith() {
+  const [raw, setFaith, loaded] = useDeviceValue<string>("pc.faith", "");
+  const faith = (FAITH_IDS.includes(raw) ? raw : "") as FaithChoice;
+  return { faith, setFaith: (f: FaithChoice) => setFaith(f), loaded };
 }

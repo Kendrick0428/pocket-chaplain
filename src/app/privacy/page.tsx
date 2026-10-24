@@ -39,7 +39,7 @@ export default async function Privacy() {
         <p>
           <strong>Your saved prayers and your &ldquo;How am I doing?&rdquo; check-ins</strong> also stay only on this
           device. Check-in answers are kept only if you turn on &ldquo;Remember my check-ins,&rdquo; and turning it off
-          erases them. Nobody, including the chaplain, is told that you checked in.
+          erases them. Nobody, including the chaplain, is told that you checked in. Your &ldquo;My faith&rdquo; choice is also saved only on this device and is never sent to us.
         </p>
         <p style={{ marginBottom: 0 }}>
           To work without a signal, the app saves copies of its public pages (prayers, resources, and similar) on your

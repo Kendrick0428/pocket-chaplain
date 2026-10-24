@@ -31,7 +31,7 @@ cp .env.example .env.local   # then edit both values
 | Home | `/` | "Support for those who serve," daily encouragement, three large Reach buttons, Prayer, Pocket Chaplain, Share an Idea |
 | Reach a Chaplain | `/reach/chaplain` | Call/Text buttons when an admin has set a number; follow-up request form always available |
 | Reach My Pastor / a Friend | `/reach/pastor`, `/reach/friend` | Name + phone saved **only in the officer's browser** (localStorage). Never sent to the server; admins can't see it |
-| Pocket Chaplain | `/pocket-chaplain` | Searchable library, filter by situation; **Save** any entry as a favorite (kept on the device; `?topic=saved` shows them) |
+| Pocket Chaplain | `/pocket-chaplain` | Searchable library, filter by situation; **My faith** picker (Christian, Jewish, Muslim, Buddhist, Hindu, another faith, or no religious preference; saved on the device) shows that tradition's entries plus entries for everyone; **Save** any entry as a favorite (kept on the device; `?topic=saved` shows them) |
 | How am I doing? | `/check-in` | Private check-in with suggestions; "Not okay" goes straight to 988/911 and Reach buttons. Answers stay on the device; optional on-device history |
 | For families | `/family` | Prayers for spouses and children (library entries tagged "For spouses & families"), family resources, chaplain access |
 | Daily reminder | `/reminder` | Optional daily notification of today's encouragement (Web Push, see LAUNCH.md §5) or a calendar reminder built on the device |

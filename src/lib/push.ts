@@ -50,7 +50,10 @@ const clip = (s: string, n: number) => (s.length > n ? `${s.slice(0, n - 1).trim
  */
 export async function sendDueReminders(now = new Date()) {
   setup();
-  const [subs, { encouragements }] = await Promise.all([listPushSubscriptions(), getContent()]);
+  const [subs, content] = await Promise.all([listPushSubscriptions(), getContent()]);
+  // The server never learns anyone's faith, so notifications use encouragements written for everyone.
+  const general = content.encouragements.filter((e) => e.tradition === "all");
+  const encouragements = general.length ? general : content.encouragements;
   const due = subs
     .map((s) => ({ s, local: localDate(now, s.tz) }))
     .filter(({ s, local }) => local.hour === s.hour && s.lastSentOn !== local.iso);
