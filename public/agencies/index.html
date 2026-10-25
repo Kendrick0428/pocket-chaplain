@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<base href="/agencies/">
+<title>The Pocket Chaplain for Agencies</title>
+<link rel="icon" href="/icon.png">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet">
+<style>
+  @page { size: Letter; margin: 0; }
+  :root {
+    --navy: #0f1d3d; --navy-2: #1b2c55; --blue: #4a6591; --muted: #5b6b85;
+    --gold: #c9a14a; --gold-soft: #f6efdc; --ink: #1a2233; --line: #dde3ec; --bg: #f4f6fa;
+    --red: #8f1d1d; --red-bg: #fbeeee;
+  }
+  * { box-sizing: border-box; }
+  
+  body { font-family: Inter, system-ui, sans-serif; color: var(--ink); font-size: 10.5pt; line-height: 1.5;
+         -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  h1, h2, h3, .serif { font-family: "Source Serif 4", Georgia, serif; }
+  .page { width: 8.5in; height: 11in; position: relative; overflow: hidden; page-break-after: always; display: flex; flex-direction: column; }
+  .page:last-child { page-break-after: auto; }
+  .ph { color: #7a5a00; background: #fff3c4; padding: 0 3px; border-radius: 2px; white-space: nowrap; }
+
+  /* shared header/footer for inner pages */
+  .bar { background: var(--navy); color: #fff; padding: 0.32in 0.6in 0.28in; display: flex; align-items: center; gap: 14px; border-bottom: 3px solid var(--gold); }
+  .bar img { width: 46px; height: 46px; }
+  .bar .name { font-family: "Source Serif 4", serif; font-weight: 700; font-size: 15pt; line-height: 1.1; }
+  .bar .tag { font-size: 8.5pt; color: #c8d2e6; letter-spacing: .04em; }
+  .bar .section { margin-left: auto; font-size: 8pt; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); font-weight: 600; }
+  .body { padding: 0.3in 0.6in 0; flex: 1; }
+  .foot { padding: 0.14in 0.6in 0.26in; font-size: 8pt; color: var(--muted); display: flex; justify-content: space-between; border-top: 1px solid var(--line); margin: 0 0.6in; padding-left: 0; padding-right: 0; }
+  .eyebrow { font-size: 8pt; letter-spacing: .14em; text-transform: uppercase; color: var(--blue); font-weight: 700; margin: 0 0 4px; }
+  h2 { font-size: 20pt; line-height: 1.15; margin: 0 0 10px; color: var(--navy); }
+  h3 { font-size: 12.5pt; margin: 0 0 4px; color: var(--navy); }
+  p { margin: 0 0 9px; }
+  .lead { font-size: 11.5pt; color: #34405a; }
+
+  .notice { background: var(--red-bg); border: 1px solid #ecc9c9; color: var(--red); border-radius: 8px; padding: 9px 12px; font-size: 9pt; }
+  .notice b { color: var(--red); }
+
+  /* ---------- PAGE 1: FLYER ---------- */
+  .hero { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 70%, #2a4272 100%); color: #fff; padding: 0.5in 0.6in 0.95in; position: relative; }
+  .hero::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: var(--gold); }
+  .hero-top { display: flex; align-items: center; gap: 22px; }
+  .hero-top img { width: 1.45in; height: 1.45in; filter: drop-shadow(0 6px 14px rgba(0,0,0,.35)); }
+  .hero .kicker { color: var(--gold); font-size: 8.5pt; letter-spacing: .18em; font-weight: 700; text-transform: uppercase; }
+  .hero h1 { font-size: 33pt; line-height: 1.05; margin: 4px 0 8px; }
+  .hero .sub { font-size: 12pt; color: #d6deef; max-width: 4.6in; margin: 0; }
+  .prepared { position: absolute; top: 0.3in; right: 0.6in; font-size: 8pt; color: #aebbd6; text-align: right; }
+
+  .flyer-main { display: grid; grid-template-columns: 1fr 2.15in; gap: 0.32in; padding: 0.32in 0.6in 0; flex: 1; }
+  .phones { margin-top: -0.85in; position: relative; height: 5.6in; }
+  .phone { position: absolute; width: 1.62in; border-radius: 18px; border: 5px solid #0b1430; background: #0b1430; overflow: hidden; box-shadow: 0 10px 26px rgba(15,29,61,.28); }
+  .phone img { display: block; width: 100%; }
+  .phone.a { right: 0.42in; top: 0; height: 3.45in; z-index: 2; }
+  .phone.b { right: 0; top: 2.25in; height: 2.9in; z-index: 1; width: 1.45in; }
+  .phone.a img { object-fit: cover; object-position: top; height: 100%; }
+  .phone.b img { object-fit: cover; object-position: top; height: 100%; }
+
+  .reach { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 4px 0 14px; }
+  .reach div { background: var(--navy); color: #fff; border-radius: 9px; padding: 10px 11px; }
+  .reach b { display: block; font-size: 10pt; }
+  .reach span { font-size: 8.3pt; color: #c8d2e6; line-height: 1.35; display: block; margin-top: 2px; }
+
+  .feat { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 18px; margin: 0 0 14px; padding: 0; list-style: none; }
+  .feat li { padding-left: 16px; position: relative; font-size: 9.6pt; line-height: 1.4; }
+  .feat li::before { content: ""; position: absolute; left: 0; top: 6px; width: 7px; height: 7px; border-radius: 50%; background: var(--gold); }
+  .feat b { color: var(--navy); }
+
+  .offer { display: flex; gap: 14px; align-items: stretch; margin-bottom: 12px; }
+  .offer .pilot { flex: 1.25; background: var(--gold-soft); border: 1.5px solid var(--gold); border-radius: 10px; padding: 11px 14px; }
+  .offer .pilot .big { font-family: "Source Serif 4", serif; font-size: 17pt; font-weight: 700; color: var(--navy); line-height: 1.1; }
+  .offer .pilot p { font-size: 9pt; margin: 4px 0 0; color: #3d4760; }
+  .offer .price { flex: 1; border: 1px solid var(--line); border-radius: 10px; padding: 11px 14px; font-size: 9pt; }
+  .offer .price .from { font-family: "Source Serif 4", serif; font-size: 17pt; font-weight: 700; color: var(--navy); line-height: 1.1; }
+
+  .contact-strip { background: var(--navy); color: #fff; padding: 0.22in 0.6in; display: flex; justify-content: space-between; align-items: center; font-size: 10pt; }
+  .contact-strip .who { font-family: "Source Serif 4", serif; font-size: 12.5pt; font-weight: 700; }
+  .contact-strip .who small { display: block; font-family: Inter, sans-serif; font-weight: 400; font-size: 8.5pt; color: #c8d2e6; }
+  .contact-strip .lines { text-align: right; line-height: 1.55; }
+  .contact-strip .lines b { color: var(--gold); }
+  .flyer-notice { padding: 0 0.6in 0.18in; }
+
+  /* ---------- PAGE 2: LETTER ---------- */
+  .letter { padding: 0.45in 0.8in 0; flex: 1; font-size: 10.4pt; line-height: 1.5; }
+  .letter .lhead { display: flex; align-items: center; gap: 14px; border-bottom: 2px solid var(--gold); padding-bottom: 12px; margin-bottom: 16px; }
+  .letter .lhead img { width: 58px; height: 58px; }
+  .letter .lhead .name { font-family: "Source Serif 4", serif; font-size: 18pt; font-weight: 700; color: var(--navy); line-height: 1.1; }
+  .letter .lhead .tag { font-size: 9pt; color: var(--muted); }
+  .letter .lhead .addr { margin-left: auto; text-align: right; font-size: 8.8pt; color: var(--muted); line-height: 1.45; }
+  .letter p { margin: 0 0 9px; }
+  .letter .sig { margin-top: 18px; }
+  .letter .sig .script { font-family: "Source Serif 4", serif; font-style: italic; font-size: 17pt; color: var(--navy); margin-bottom: 2px; }
+  .letter .ps { font-size: 9.8pt; color: #3d4760; border-top: 1px solid var(--line); padding-top: 10px; margin-top: 16px; }
+
+  /* ---------- PAGE 3: FEATURES & PRIVACY ---------- */
+  .twocol { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 22px; }
+  .card { border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; background: #fff; }
+  .card h3 { font-size: 11pt; font-family: Inter, sans-serif; font-weight: 700; }
+  .card p { font-size: 8.9pt; margin: 0; color: #3d4760; line-height: 1.42; }
+  .shots { display: grid; grid-template-columns: 1.55in 1.55in 1fr; gap: 14px; align-items: start; margin: 6px 0 12px; }
+  .shot { border-radius: 12px; overflow: hidden; border: 4px solid #0b1430; background: #0b1430; height: 2.05in; }
+  .shot img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+  .shot-cap { font-size: 8pt; color: var(--muted); margin-top: 4px; text-align: center; }
+  .privacy { background: var(--bg); border-left: 4px solid var(--blue); border-radius: 0 10px 10px 0; padding: 9px 16px; }
+  .privacy ul { margin: 4px 0 0; padding-left: 18px; font-size: 9.1pt; }
+  .privacy li { margin-bottom: 2px; }
+  .isnot { display: flex; gap: 10px; margin-top: 12px; }
+  .isnot > div { flex: 1; border-radius: 10px; padding: 10px 13px; font-size: 9.2pt; }
+  .is { background: #eef3fb; }
+  .not { background: #f6f6f6; }
+  .isnot b { display: block; color: var(--navy); margin-bottom: 3px; font-size: 9.8pt; }
+
+  /* ---------- PAGE 4: PILOT & PRICING ---------- */
+  table.tiers { width: 100%; border-collapse: separate; border-spacing: 0; margin: 10px 0 14px; font-size: 10pt; }
+  table.tiers th { text-align: left; background: var(--navy); color: #fff; padding: 9px 12px; font-weight: 600; font-size: 9pt; letter-spacing: .03em; }
+  table.tiers th:first-child { border-radius: 9px 0 0 0; }
+  table.tiers th:last-child { border-radius: 0 9px 0 0; text-align: right; }
+  table.tiers td { padding: 7px 12px; border-bottom: 1px solid var(--line); }
+  table.tiers td:last-child { text-align: right; font-family: "Source Serif 4", serif; font-weight: 700; font-size: 13pt; color: var(--navy); }
+  table.tiers tr:nth-child(even) td { background: var(--bg); }
+  .pilot-box { background: var(--gold-soft); border: 1.5px solid var(--gold); border-radius: 12px; padding: 11px 18px; display: grid; grid-template-columns: 1.2in 1fr; gap: 16px; align-items: center; margin-bottom: 14px; }
+  .pilot-box .days { font-family: "Source Serif 4", serif; text-align: center; color: var(--navy); }
+  .pilot-box .days b { display: block; font-size: 40pt; line-height: 1; }
+  .pilot-box .days span { font-size: 9pt; letter-spacing: .12em; text-transform: uppercase; font-weight: 600; }
+  .pilot-box ol { margin: 4px 0 0; padding-left: 18px; font-size: 9.5pt; }
+  .pilot-box ol li { margin-bottom: 3px; }
+  .incl { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 22px; margin-bottom: 14px; }
+  .incl ul { margin: 4px 0 0; padding-left: 18px; font-size: 9.4pt; }
+  .free { background: var(--navy); color: #fff; border-radius: 10px; padding: 11px 15px; font-size: 9.5pt; margin-bottom: 12px; }
+  .free b { color: var(--gold); }
+  .next { border: 1px dashed var(--blue); border-radius: 10px; padding: 11px 15px; font-size: 9.5pt; }
+  .next .fill { display: inline-block; min-width: 2.2in; border-bottom: 1px solid #9aa6bb; height: 14px; vertical-align: bottom; }
+  /* ---------- WHY IT MATTERS ---------- */
+  .art { border-radius: 12px; overflow: hidden; display: block; width: 100%; object-fit: cover; }
+  .art.wide { height: 2.35in; object-position: 50% 92%; }
+  .art.half { height: 1.95in; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 4px 0 14px; }
+  .stat { background: var(--navy); color: #fff; border-radius: 10px; padding: 10px 13px; border-top: 3px solid var(--gold); }
+  .stat b { display: block; font-family: "Source Serif 4", serif; font-size: 22pt; line-height: 1.05; color: var(--gold); }
+  .stat span { font-size: 8.6pt; line-height: 1.38; color: #dbe2f0; display: block; margin-top: 3px; }
+  .src { font-size: 7.4pt; color: var(--muted); margin-top: 10px; line-height: 1.4; }
+  .arts { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 14px; }
+  .cap h3 { margin-top: 9px; font-size: 12pt; }
+  .cap p { font-size: 9.5pt; color: #3d4760; margin: 0; }
+</style>
+<style>
+  /* Review view: the printed sheets stacked on a desk-grey ground, scaled to fit the screen */
+  html { background: #d9dee7; }
+  body { margin: 0; }
+  body { background: #d9dee7; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 24px 48px; }
+  .review { max-width: 816px; margin: 0 auto 20px; background: #0f1d3d; color: #fff; border-radius: 12px; padding: 16px 20px; border-bottom: 3px solid #c9a14a; }
+  .review b { color: #c9a14a; letter-spacing: .12em; text-transform: uppercase; font-size: 11px; display: block; margin-bottom: 4px; }
+  .review p { margin: 0; font-size: 14px; line-height: 1.5; color: #dfe5f1; }
+  .sheet-wrap { width: 816px; max-width: 100%; margin: 0 auto 24px; position: relative; overflow: hidden; }
+  .sheet-wrap .page { transform-origin: top left; box-shadow: 0 6px 24px rgba(15,29,61,.18); background: #fff; }
+</style>
+</head>
+<body>
+<div class="review"><b>Draft for review</b><p>This is the sheriff information package for The Pocket Chaplain, shown as it will print (5 letter-size pages). Highlighted yellow text is a placeholder that will be filled in before it goes out. Please send corrections or suggestions to Pastor Kendrick Meredith at pastorkendrick@yahoo.com.</p><p style="margin-top:10px"><a href="pocket-chaplain-agency-package.pdf" style="color:#c9a14a;font-weight:600">Download the printable PDF</a></p></div>
+
+
+<!-- ================= PAGE 1: ONE-PAGE OVERVIEW ================= -->
+<div class="sheet-wrap"><section class="page">
+  <div class="hero">
+    <div class="prepared">Prepared for<br><b style="color:#fff">Sheriff <span class="ph">[Sheriff's Name]</span></b><br><span class="ph">[County Name]</span> County Sheriff's Office</div>
+    <div class="hero-top">
+      <img src="logo.png" alt="The Pocket Chaplain logo">
+      <div>
+        <div class="kicker">The Pocket Chaplain</div>
+        <h1>Support for those<br>who serve.</h1>
+        <p class="sub">Prayer, encouragement, and a one-tap way for deputies, staff, and their families to reach a chaplain, a pastor, or a trusted friend.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="flyer-main">
+    <div>
+      <p class="eyebrow">Three buttons, right on the home screen</p>
+      <div class="reach">
+        <div><b>Reach a Chaplain</b><span>Your agency's chaplain by call or text, or a follow-up request</span></div>
+        <div><b>Reach My Pastor</b><span>Their own pastor, saved only on their phone</span></div>
+        <div><b>Reach a Friend</b><span>Someone they trust, saved only on their phone</span></div>
+      </div>
+
+      <p class="eyebrow">What's inside</p>
+      <ul class="feat">
+        <li><b>Pocket Chaplain library:</b> short prayers, scripture, and encouragement for hard calls, grief, burnout, and family strain</li>
+        <li><b>Take a moment:</b> a one-minute guided breathing pause with an optional prayer</li>
+        <li><b>Private prayer requests,</b> anonymous if they wish, seen only by the chaplain team</li>
+        <li><b>Share an Idea:</b> a private way to suggest prayers, topics, and events</li>
+        <li><b>For every faith:</b> each person picks a faith preference, kept on their own phone</li>
+        <li><b>Resources:</b> chaplain, peer support, grief, counseling, family, and crisis lines</li>
+        <li><b>Your badge, your contacts:</b> your office gets its own branded copy</li>
+        <li><b>Works on any phone,</b> tablet, or computer, with no app store download</li>
+      </ul>
+
+      <div class="offer">
+        <div class="pilot">
+          <div class="big">Free 90-day pilot</div>
+          <p>Try it with your whole office before you commit. No cost, no obligation.</p>
+        </div>
+        <div class="price">
+          <div class="from">From $600/yr</div>
+          One yearly license by staff size. Families included.
+        </div>
+      </div>
+    </div>
+
+    <div class="phones">
+      <div class="phone a"><img src="home-phone.png" alt="Home screen with three Reach buttons"></div>
+      <div class="phone b"><img src="pastor-phone.png" alt="Reach My Pastor screen"></div>
+    </div>
+  </div>
+
+  <div class="flyer-notice">
+    <div class="notice"><b>This app is not monitored for emergencies.</b> If you or someone else is in immediate danger, call 911. For a mental health crisis in the United States, call or text 988. The Pocket Chaplain supports a chaplain's ministry. It is not therapy, medical care, or emergency response.</div>
+  </div>
+  <div class="contact-strip">
+    <div class="who">Pastor Kendrick Meredith<small>Founder, The Pocket Chaplain</small></div>
+    <div class="lines"><b>thepocketchaplain.com</b><br>pastorkendrick@yahoo.com · <span class="ph">[Phone number]</span></div>
+  </div>
+</section></div>
+
+<!-- ================= PAGE 2: LETTER ================= -->
+<div class="sheet-wrap"><section class="page">
+  <div class="letter">
+    <div class="lhead">
+      <img src="logo.png" alt="">
+      <div>
+        <div class="name">The Pocket Chaplain</div>
+        <div class="tag">Support for those who serve.</div>
+      </div>
+      <div class="addr">thepocketchaplain.com<br>pastorkendrick@yahoo.com<br><span class="ph">[Phone number]</span></div>
+    </div>
+
+    <p><span class="ph">[Date]</span></p>
+    <p>Sheriff <span class="ph">[Sheriff's Name]</span><br>
+      <span class="ph">[County Name]</span> County Sheriff's Office<br>
+      <span class="ph">[Street Address]</span><br>
+      <span class="ph">[City, State ZIP]</span></p>
+
+    <p>Dear Sheriff <span class="ph">[Last Name]</span>,</p>
+
+    <p>Thank you for the work you and your people do for <span class="ph">[County Name]</span> County. I'm writing because I have seen, in years of ministry alongside officers, how much your deputies carry home after a shift, and how often they carry it alone. Most of them would never call a hotline. Many would call someone they already trust, if that person were one tap away at the right moment.</p>
+
+    <p>That is why I built <b>The Pocket Chaplain</b>. It's a simple app for deputies, staff, and their families. The home screen has three large buttons: <b>Reach a Chaplain</b>, <b>Reach My Pastor</b>, and <b>Reach a Friend</b>. Tapping one opens the phone's own call or text screen, so the person stays in control. Alongside those buttons are short prayers, scripture, and encouragement for hard calls, grief, burnout, and family strain, a one-minute "Take a moment" breathing pause, and a private way to send a prayer request to the chaplain team.</p>
+
+    <p>I want to be clear about what it is not. The Pocket Chaplain does not replace your chaplain, a pastor, a friend, counseling, or emergency services. It is not therapy and it is not monitored for emergencies. Its purpose is to extend your chaplain's ministry and make it easier for someone to reach out before a hard week becomes a crisis. I also believe chaplaincy is for everyone, so each person can choose a faith preference, and content for other traditions is added with input from those faith leaders.</p>
+
+    <p>Privacy matters to the people you lead, so it shaped the design. A deputy's pastor and friend contacts are saved only on their own phone; neither your administrators nor I can see them. Prayer requests and ideas can be sent anonymously and are seen only by authorized chaplain-team administrators. There are no public profiles or public prayer feeds.</p>
+
+    <p>Your office would receive its own copy with your badge, your chaplain's contact information, and your local resources. I'd like to offer a <b>free 90-day pilot</b> for your entire office, families included, so you can see whether it helps your people before making any decision.</p>
+
+    <p>I would welcome 20 minutes to show you the app on your phone. Thank you for considering it, and for your service.</p>
+
+    <div class="sig">
+      <p style="margin:0 0 4px">Respectfully,</p>
+      <div class="script">Kendrick Meredith</div>
+      <div><b>Pastor Kendrick Meredith</b><br>Founder, The Pocket Chaplain</div>
+    </div>
+
+    <div class="ps"><b>Enclosed:</b> one-page overview · why it matters · features and privacy summary · pilot and pricing details</div>
+  </div>
+</section></div>
+
+<!-- ================= PAGE: WHY IT MATTERS ================= -->
+<div class="sheet-wrap"><section class="page">
+  <div class="bar">
+    <img src="logo.png" alt="">
+    <div><div class="name">The Pocket Chaplain</div><div class="tag">Support for those who serve.</div></div>
+    <div class="section">Why It Matters</div>
+  </div>
+  <div class="body">
+    <p class="eyebrow">After the call</p>
+    <h2>The hardest part of the job often comes after the shift.</h2>
+    <p class="lead">Deputies see what most people never will, and many carry it quietly. The Pocket Chaplain puts a chaplain, a pastor, and a trusted friend one tap away, so reaching out is as easy as it should be.</p>
+    <div class="stats">
+      <div class="stat"><b>140 vs. 129</b><span>In 2017, more U.S. police officers died by suicide (140) than in the line of duty (129).<sup>1</sup></span></div>
+      <div class="stat"><b>Up to 5&times;</b><span>Rates of depression and PTSD among first responders are as much as five times higher than among civilians.<sup>1</sup></span></div>
+      <div class="stat"><b>53%</b><span>of officers in a 2025 department survey said they would not seek professional help if they were struggling.<sup>2</sup></span></div>
+    </div>
+    <img class="art wide" src="art/grief-hi.jpg" alt="Illustration of a deputy sitting on a curb beside a patrol car at dusk, head in hands">
+    <div class="cap"><h3>When a call stays with them</h3><p>A short prayer, a moment to breathe, or a quiet way to ask the chaplain to follow up.</p></div>
+    <div class="arts">
+      <div class="cap">
+        <img class="art half" src="art/chaplain-hi.jpg" alt="Illustration of a chaplain with a hand on a deputy's shoulder on a park bench">
+        <h3>A real person to talk to</h3>
+        <p>The app doesn't replace your chaplain. It helps your people reach them sooner, by call or text.</p>
+      </div>
+      <div class="cap">
+        <img class="art half" src="art/phone-hi.jpg" alt="Illustration of a deputy's hand holding a phone showing The Pocket Chaplain home screen">
+        <h3>Help in their pocket</h3>
+        <p>Works on the phone they already carry. No app store, no account, and the Reach buttons come first.</p>
+      </div>
+    </div>
+    <p class="src"><sup>1</sup> Ruderman Family Foundation, <i>Study: Police Officers and Firefighters Are More Likely to Die by Suicide than in Line of Duty</i> (2018). <sup>2</sup> Survey of about 100 Fargo (N.D.) Police Department officers by Carol Archbold, North Dakota State University, reported by Stateline, July 28, 2025.</p>
+  </div>
+  <div class="foot"><span>thepocketchaplain.com · pastorkendrick@yahoo.com</span><span>Not monitored for emergencies. Danger: call 911. Crisis: call or text 988.</span></div>
+</section></div>
+
+<!-- ================= PAGE 3: FEATURES & PRIVACY ================= -->
+<div class="sheet-wrap"><section class="page">
+  <div class="bar">
+    <img src="logo.png" alt="">
+    <div><div class="name">The Pocket Chaplain</div><div class="tag">Support for those who serve.</div></div>
+    <div class="section">Features &amp; Privacy</div>
+  </div>
+  <div class="body">
+    <p class="eyebrow">What your people get</p>
+    <h2>Built to be used in the minute that matters.</h2>
+    <p class="lead" style="font-size:10.5pt">No account to create and no menus to dig through. It is not therapy, counseling, or emergency response, and it is not monitored for emergencies.</p>
+
+    <div class="shots">
+      <div><div class="shot"><img src="home-phone.png" alt=""></div><div class="shot-cap">Home screen</div></div>
+      <div><div class="shot"><img src="admin-phone.png" alt=""></div><div class="shot-cap">Chaplain team admin</div></div>
+      <div class="twocol" style="grid-template-columns:1fr; gap:6px">
+        <div class="card"><h3>Reach a Chaplain</h3><p>Call or text your designated chaplain. If no one is listed, a short form asks the chaplain to follow up.</p></div>
+        <div class="card"><h3>Reach My Pastor / a Friend</h3><p>Each person adds their own pastor and a trusted friend. Call or text opens their phone's own screen. Nothing dials or sends by itself.</p></div>
+        <div class="card"><h3>Your office, your brand</h3><p>Your badge, chaplain contacts, and local resources, with The Pocket Chaplain behind it.</p></div>
+      </div>
+    </div>
+
+    <div class="twocol" style="grid-template-columns:1fr 1fr 1fr; gap:8px; margin-bottom:10px">
+      <div class="card"><h3>Pocket Chaplain library</h3><p>Searchable prayers, scripture, and reflections for stress, grief, family, burnout, and recovery after a hard incident.</p></div>
+      <div class="card"><h3>Take a moment</h3><p>A one-minute guided breathing pause with an optional prayer.</p></div>
+      <div class="card"><h3>Prayer requests</h3><p>Anonymous if they wish. They choose: chaplain team only, or an approved prayer group.</p></div>
+      <div class="card"><h3>Share an Idea</h3><p>Private suggestions for prayers, topics, events, and improvements.</p></div>
+      <div class="card"><h3>For every faith</h3><p>A faith preference kept on the phone. Other traditions are added with their leaders' input.</p></div>
+      <div class="card"><h3>Resources</h3><p>Chaplain, peer support, grief, counseling, family, and crisis contacts your office keeps up to date.</p></div>
+    </div>
+
+    <div class="privacy">
+      <h3>How privacy works</h3>
+      <ul>
+        <li><b>Pastor and friend contacts stay on the person's own phone.</b> They are never sent to the server. Administrators can't see them.</li>
+        <li><b>Prayer requests, follow-up requests, and ideas</b> are seen only by authorized chaplain-team administrators. Anonymous is always an option.</li>
+        <li><b>No public profiles, comments, or prayer feeds.</b> Nothing a deputy sends is shown to coworkers.</li>
+        <li><b>We collect only what's needed</b> to provide the support someone asks for. Users are reminded not to include case, personnel, or incident details.</li>
+        <li><b>Private, but not a promise of total confidentiality.</b> A plain-language privacy page explains what is collected and who can see it.</li>
+      </ul>
+    </div>
+
+  </div>
+  <div class="foot"><span>thepocketchaplain.com · pastorkendrick@yahoo.com</span><span>Not monitored for emergencies. Danger: call 911. Crisis: call or text 988.</span></div>
+</section></div>
+
+<!-- ================= PAGE 4: PILOT & PRICING ================= -->
+<div class="sheet-wrap"><section class="page">
+  <div class="bar">
+    <img src="logo.png" alt="">
+    <div><div class="name">The Pocket Chaplain</div><div class="tag">Support for those who serve.</div></div>
+    <div class="section">Pilot &amp; Pricing</div>
+  </div>
+  <div class="body">
+    <p class="eyebrow">Proposal for <span class="ph">[County Name]</span> County Sheriff's Office</p>
+    <h2>Start with a free pilot. Keep it only if it helps.</h2>
+
+    <div class="pilot-box">
+      <div class="days"><b>90</b><span>days free</span></div>
+      <div>
+        <h3>How the pilot works</h3>
+        <ol>
+          <li>We set up your office's copy with your badge, chaplain contacts, and local resources.</li>
+          <li>Your chaplain team gets administrator access to keep content and contacts current.</li>
+          <li>You share one link with deputies, staff, and families. No accounts to create.</li>
+          <li>At 90 days we review how it went together. Continue on a yearly license, or stop with no cost.</li>
+        </ol>
+      </div>
+    </div>
+
+    <h3>Yearly agency license</h3>
+    <p style="font-size:9.6pt; color:#3d4760; margin-bottom:0">One flat price based on your staff size. Covers every sworn and civilian staff member and their families.</p>
+    <table class="tiers">
+      <thead><tr><th>Agency size</th><th>Who's covered</th><th>Per year</th></tr></thead>
+      <tbody>
+        <tr><td><b>Up to 50 staff</b></td><td>All staff and their families</td><td>$600</td></tr>
+        <tr><td><b>51 – 150 staff</b></td><td>All staff and their families</td><td>$1,200</td></tr>
+        <tr><td><b>151 – 500 staff</b></td><td>All staff and their families</td><td>$2,500</td></tr>
+        <tr><td><b>More than 500 staff</b></td><td>All staff and their families</td><td style="font-size:11pt">Custom quote</td></tr>
+      </tbody>
+    </table>
+
+    <div class="incl">
+      <div>
+        <h3>Every license includes</h3>
+        <ul>
+          <li>Your office's own branded copy, with your badge and contacts</li>
+          <li>Administrator area for your chaplain team</li>
+          <li>Full prayer, scripture, and encouragement library</li>
+          <li>Private prayer requests, follow-up requests, and ideas</li>
+          <li>Editable local resources</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Individual officers</h3>
+        <p style="font-size:9.4pt; margin:4px 0 6px">Deputies whose agency doesn't have a license can subscribe on their own at thepocketchaplain.com:</p>
+        <p style="font-size:9.4pt; margin:0"><b style="color:var(--navy); font-size:12pt">$2.99</b> per month, or <b style="color:var(--navy); font-size:12pt">$24.99</b> per year, with a 14-day free trial.</p>
+      </div>
+    </div>
+
+    <div class="free"><b>Always free, for everyone:</b> the Reach a Chaplain, Reach My Pastor, and Reach a Friend buttons, and the 911 and 988 crisis information. No one is ever asked to pay to reach help.</div>
+
+    <div class="next">
+      <h3 style="margin-bottom:8px">To start your pilot</h3>
+      Contact Pastor Kendrick Meredith at <b>pastorkendrick@yahoo.com</b> or <span class="ph">[Phone number]</span>. Please have ready:<br>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px 20px; margin-top:8px; font-size:9.2pt">
+        <div>Approximate staff count: <span class="fill" style="min-width:1.1in"></span></div>
+        <div>Chaplain name and phone: <span class="fill" style="min-width:1.1in"></span></div>
+        <div>Pilot contact person: <span class="fill" style="min-width:1.25in"></span></div>
+        <div>Badge or logo file: <span class="fill" style="min-width:1.4in"></span></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>thepocketchaplain.com · pastorkendrick@yahoo.com</span><span>Prices as of October 2026.</span></div>
+</section></div>
+
+<script>
+  function fit() {
+    document.querySelectorAll('.sheet-wrap').forEach(w => {
+      const s = Math.min(1, w.clientWidth / 816);
+      const p = w.firstElementChild;
+      p.style.transform = 'scale(' + s + ')';
+      w.style.height = (1056 * s) + 'px';
+    });
+  }
+  fit(); addEventListener('resize', fit);
+  document.fonts && document.fonts.ready.then(fit);
+</script>
+</body>
+</html>

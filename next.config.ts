@@ -9,6 +9,10 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // Agency information package: a static page in public/agencies.
+  async rewrites() {
+    return [{ source: "/agencies", destination: "/agencies/index.html" }];
+  },
   async headers() {
     return [
       { source: "/:path*", headers: securityHeaders },
