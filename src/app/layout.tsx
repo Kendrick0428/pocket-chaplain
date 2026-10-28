@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import Link from "next/link";
 import "./globals.css";
 import { getContent } from "@/lib/store";
+import { EDITION, edition } from "@/lib/edition";
 import { SiteHeader } from "@/components/SiteHeader";
 import { EmergencyNotice } from "@/components/EmergencyNotice";
 import { OfflineSupport } from "@/components/OfflineSupport";
@@ -9,17 +10,16 @@ import { OfflineSupport } from "@/components/OfflineSupport";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: { default: "The Pocket Chaplain", template: "%s · The Pocket Chaplain" },
-  description:
-    "Support for those who serve. Prayer, encouragement, and easy access to chaplain support for law enforcement officers, staff, and their families.",
+  title: { default: edition.appName, template: `%s · ${edition.appName}` },
+  description: edition.description,
   metadataBase: new URL("https://thepocketchaplain.com"),
-  applicationName: "The Pocket Chaplain",
+  applicationName: edition.appName,
   appleWebApp: { capable: true, title: "Pocket Chaplain", statusBarStyle: "black-translucent" },
   robots: { index: true, follow: true },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0b1730",
+  themeColor: edition.themeColor,
   width: "device-width",
   initialScale: 1,
 };
@@ -28,7 +28,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const { settings } = await getContent();
 
   return (
-    <html lang="en">
+    <html lang="en" data-edition={EDITION}>
       <body>
         <a href="#main" className="skip-link">
           Skip to content

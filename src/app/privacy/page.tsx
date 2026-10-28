@@ -3,6 +3,7 @@ import { getContent } from "@/lib/store";
 import { BackLink } from "@/components/BackLink";
 import { EmergencyNotice } from "@/components/EmergencyNotice";
 import { WithPlaceholders } from "@/components/Placeholder";
+import { edition } from "@/lib/edition";
 
 export const metadata: Metadata = { title: "Privacy" };
 
@@ -79,7 +80,7 @@ export default async function Privacy() {
           </li>
         </ul>
         <p style={{ marginBottom: 0 }}>
-          We don&apos;t ask for your badge number, rank, or assignment, and we don&apos;t create user profiles. We
+          We don&apos;t ask for your {edition.workIds}, and we don&apos;t create user profiles. We
           don&apos;t use advertising or tracking cookies. Our server, like most websites, may briefly log technical data
           such as your IP address to keep the service secure and prevent abuse.
         </p>
