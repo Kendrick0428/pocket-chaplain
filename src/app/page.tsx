@@ -24,7 +24,7 @@ export default async function Home() {
             )}
           </div>
           <div>
-            <p className="eyebrow">{edition.label ? `${settings.appName} · ${edition.label}` : settings.appName}</p>
+            <p className="eyebrow">{edition.label ? `${settings.appName}: ${edition.label}` : settings.appName}</p>
             <h1>Support for those who serve.</h1>
             <p>Prayer, encouragement, and a quick way to reach your chaplain and the people you trust.</p>
           </div>

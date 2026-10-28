@@ -65,3 +65,22 @@ Pastor and friend contacts, saved prayers, and "How am I doing?" check-ins are s
   - `SUPABASE_URL` = `https://wnrfgwxvswozcjrkvjje.supabase.co`
   - `SUPABASE_ANON_KEY` = `sb_publishable_ZAVWcLDQB98w7WNLtLDBxQ_33pwIuMK` (public key, safe to share)
   - `SUPABASE_SERVICE_ROLE_KEY` = copy the **secret** key from Supabase → Project Settings → API Keys. Paste it only into the hosting settings; never into chat, email, or code.
+
+## 6. Pocket Chaplain: Fire & Rescue at fire.thepocketchaplain.com
+
+The Fire & Rescue edition is the same code deployed as a second site. It needs its own hosting project and its own data, so fire submissions never mix with the law-enforcement site.
+
+1. **Hosting.** In Vercel, choose Add New → Project and import this same GitHub repository again. Name it `pocket-chaplain-fire`.
+2. **Environment variables** for that project:
+   - `NEXT_PUBLIC_EDITION` = `fire` (this is what turns it into the Fire & Rescue edition)
+   - `ADMIN_PASSWORD` and `SESSION_SECRET`: new values, different from the law-enforcement site
+   - The `SUPABASE_*` values for the fire site's own database, once it has one (see step 4)
+3. **Domain.** In the Vercel project, open Settings → Domains and add `fire.thepocketchaplain.com`. Then, wherever thepocketchaplain.com's DNS is managed, add the record Vercel shows. It is normally:
+
+   | Type | Name | Value |
+   |---|---|---|
+   | CNAME | `fire` | `cname.vercel-dns.com` |
+
+   HTTPS is issued automatically once the record is found, usually within an hour.
+4. **Database.** The fire site needs its own Supabase project (run `0001_init.sql` and, for reminders, `0002_push_subscriptions.sql` in it, add the fire admins to `admin_users`, and set its Auth **Site URL** to `https://fire.thepocketchaplain.com`). Until then, keep the prototype banner on: pages and the library work, but forms and admin edits can't be saved on Vercel without a database.
+5. **Reminders (optional).** Same as section 5, with its own `CRON_SECRET` and the URL `https://fire.thepocketchaplain.com/api/push/send`.

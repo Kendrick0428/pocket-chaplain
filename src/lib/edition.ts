@@ -10,7 +10,7 @@ export const EDITION: EditionId = process.env.NEXT_PUBLIC_EDITION === "fire" ? "
 type Edition = {
   /** Full name for browser tabs, the installed app, and search results. */
   appName: string;
-  /** Shown beside the app name in the header and home screen ("" for none). */
+  /** Shown after the app name in the header and home screen ("" for none). */
   label: string;
   description: string;
   /** Who the app is for, as in "for the ___ of [Department]". */
@@ -34,11 +34,11 @@ const EDITIONS: Record<EditionId, Edition> = {
     themeColor: "#0b1730",
   },
   fire: {
-    appName: "The Pocket Chaplain for Firefighters",
-    label: "For Firefighters",
+    appName: "Pocket Chaplain: Fire & Rescue",
+    label: "Fire & Rescue",
     description:
-      "Support for those who serve. Prayer, encouragement, and easy access to chaplain support for firefighters, EMS crews, staff, and their families.",
-    audience: "firefighters, EMS crews, staff, and families",
+      "Support for those who serve. Prayer, encouragement, and easy access to chaplain support for firefighters, rescue and EMS crews, staff, and their families.",
+    audience: "firefighters, rescue and EMS crews, staff, and families",
     addressLabel: "Station or headquarters address",
     workIds: "employee number, rank, or station assignment",
     themeColor: "#0b1730",

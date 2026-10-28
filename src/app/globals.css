@@ -452,7 +452,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--blue-500); }
 .badge-upload img { object-fit: contain; border: 1px solid var(--border); border-radius: 10px; background: var(--surface-2); padding: 4px; }
 .badge-empty { width: 96px; height: 96px; display: grid; place-items: center; border: 2px dashed var(--border); border-radius: 10px; color: var(--text-muted); font-size: 0.85rem; }
 
-/* ---------- Firefighter edition (NEXT_PUBLIC_EDITION=fire) ----------
+/* ---------- Fire & Rescue edition (NEXT_PUBLIC_EDITION=fire) ----------
    Same navy base, with a red/ember accent; gold stays for small touches. */
 html[data-edition="fire"] {
   --ember-700: #8f1d14;

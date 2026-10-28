@@ -1,7 +1,7 @@
 import type { SiteContent } from "./types";
 
 /**
- * Starter content for the firefighter edition (NEXT_PUBLIC_EDITION=fire).
+ * Starter content for the Fire & Rescue edition (NEXT_PUBLIC_EDITION=fire).
  * Copied into data/store.json the first time the app runs; after that,
  * administrators edit it from /admin.
  *
@@ -10,7 +10,7 @@ import type { SiteContent } from "./types";
  */
 export const fireSeed: SiteContent = {
   settings: {
-    appName: "The Pocket Chaplain",
+    appName: "Pocket Chaplain",
     departmentName: "[Your Fire Department Name]",
     departmentLogo: "",
     departmentAddress: "",
