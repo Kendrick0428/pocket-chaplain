@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Logo } from "./Icons";
+import { edition } from "@/lib/edition";
 
 const NAV = [
   { href: "/", label: "Home" },
@@ -30,7 +31,7 @@ export function SiteHeader({ appName, departmentName }: { appName: string; depar
           <Logo size={44} />
           <span>
             {appName}
-            <small>{departmentName}</small>
+            <small>{edition.label ? `${edition.label} · ${departmentName}` : departmentName}</small>
           </span>
         </Link>
         <button

@@ -451,3 +451,31 @@ input:focus, select:focus, textarea:focus { border-color: var(--blue-500); }
 .badge-upload { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
 .badge-upload img { object-fit: contain; border: 1px solid var(--border); border-radius: 10px; background: var(--surface-2); padding: 4px; }
 .badge-empty { width: 96px; height: 96px; display: grid; place-items: center; border: 2px dashed var(--border); border-radius: 10px; color: var(--text-muted); font-size: 0.85rem; }
+
+/* ---------- Firefighter edition (NEXT_PUBLIC_EDITION=fire) ----------
+   Same navy base, with a red/ember accent; gold stays for small touches. */
+html[data-edition="fire"] {
+  --ember-700: #8f1d14;
+  --ember-600: #b3261e;
+  --ember-400: #f0875a;
+  --ember-100: #fbe9e5;
+}
+@media (prefers-color-scheme: dark) {
+  html[data-edition="fire"] { --ember-100: #3a1814; }
+}
+[data-edition="fire"] .site-header,
+[data-edition="fire"] .site-nav { border-bottom-color: var(--ember-600); }
+[data-edition="fire"] .site-nav a[aria-current="page"] { box-shadow: inset 0 -2px 0 var(--ember-400); }
+[data-edition="fire"] .hero {
+  background: linear-gradient(160deg, var(--navy-900) 0%, var(--navy-800) 55%, var(--ember-700) 150%);
+}
+[data-edition="fire"] .daily { border-top-color: var(--ember-600); }
+[data-edition="fire"] .reach-btn .icon { color: var(--ember-400); }
+[data-edition="fire"] .reach-btn:hover { border-color: var(--ember-400); }
+[data-edition="fire"] .tile .icon { color: var(--ember-600); }
+@media (prefers-color-scheme: dark) {
+  [data-edition="fire"] .tile .icon { color: var(--ember-400); }
+}
+[data-edition="fire"] .badge.new { background: var(--ember-600); }
+[data-edition="fire"] .admin-tabs a[aria-current="page"] { border-bottom-color: var(--ember-600); }
+[data-edition="fire"] .install-card { border-top-color: var(--ember-600); }

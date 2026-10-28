@@ -4,6 +4,7 @@ import { Logo } from "@/components/Icons";
 import { DailyEncouragement } from "@/components/DailyEncouragement";
 import { InstallPrompt } from "@/components/InstallPrompt";
 import { DepartmentCard } from "@/components/DepartmentCard";
+import { edition } from "@/lib/edition";
 import {
   BellIcon, BookIcon, CheckInIcon, ChurchIcon, FriendIcon, HomeIcon, IdeaIcon, LeafIcon, LifebuoyIcon, PrayIcon, ShieldIcon, StarIcon,
 } from "@/components/Icons";
@@ -23,7 +24,7 @@ export default async function Home() {
             )}
           </div>
           <div>
-            <p className="eyebrow">{settings.appName}</p>
+            <p className="eyebrow">{edition.label ? `${settings.appName} · ${edition.label}` : settings.appName}</p>
             <h1>Support for those who serve.</h1>
             <p>Prayer, encouragement, and a quick way to reach your chaplain and the people you trust.</p>
           </div>

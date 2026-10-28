@@ -26,7 +26,7 @@ export async function AdminShell({ current, children }: { current: string; child
         </form>
       </div>
       <p className="small muted">
-        Personal pastor and friend contacts are stored only on each officer&apos;s device and never appear here.
+        Personal pastor and friend contacts are stored only on each person&apos;s device and never appear here.
       </p>
       <nav className="admin-tabs" aria-label="Administration sections">
         {TABS.map((t) => (

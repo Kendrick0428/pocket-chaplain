@@ -1,4 +1,6 @@
 import type { SiteContent } from "./types";
+import { EDITION } from "./edition";
+import { fireSeed } from "./seed-fire";
 
 /**
  * Starter content. Copied into data/store.json the first time the app runs;
@@ -7,7 +9,7 @@ import type { SiteContent } from "./types";
  * Anything in [BRACKETS] is a placeholder the department must replace.
  * Scripture is quoted from the King James Version (public domain).
  */
-export const seedContent: SiteContent = {
+export const policeSeed: SiteContent = {
   settings: {
     appName: "The Pocket Chaplain",
     departmentName: "[Your Department Name]",
@@ -139,3 +141,5 @@ export const seedContent: SiteContent = {
     { id: "r9", category: "crisis", name: "Emergency services", description: "If you or someone else is in immediate danger, call 911.", phone: "911", text: "", url: "", hours: "24/7" },
   ],
 };
+
+export const seedContent: SiteContent = EDITION === "fire" ? fireSeed : policeSeed;
