@@ -81,7 +81,7 @@ export async function sendDueReminders(now = new Date()) {
         try {
           await webpush.sendNotification(
             { endpoint: s.endpoint, keys: { p256dh: s.p256dh, auth: s.auth } },
-            JSON.stringify({ title: "Today's encouragement", body, url: "/" }),
+            JSON.stringify({ title: "Today's encouragement", body, url: "/home" }),
             { TTL: 6 * 60 * 60 },
           );
           sent++;

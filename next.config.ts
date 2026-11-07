@@ -9,6 +9,19 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // The info website (plain HTML in public/site) is the front page.
+  // The app itself starts at /home.
+  async rewrites() {
+    return {
+      beforeFiles: [
+        { source: "/", destination: "/site/index.html" },
+        { source: "/law-enforcement", destination: "/site/police.html" },
+        { source: "/fire-ems", destination: "/site/fire.html" },
+      ],
+      afterFiles: [],
+      fallback: [],
+    };
+  },
   async headers() {
     return [
       { source: "/:path*", headers: securityHeaders },
