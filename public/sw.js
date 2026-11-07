@@ -1,7 +1,7 @@
 /*
  * The Pocket Chaplain service worker.
  *
- * - Saves the main pages and their files so prayers, Take a moment, and the
+ * - Saves the main pages and their files so prayers, Take a moment, Breathe with me, and the
  *   on-device pastor/friend contacts open without a signal.
  * - Pages always come from the network first, so content stays current; the
  *   saved copy is used only when the network fails or is very slow.
@@ -9,7 +9,7 @@
  * - Shows the optional daily reminder notification.
  */
 
-const VERSION = "v2";
+const VERSION = "v3";
 const PAGES_CACHE = `pc-pages-${VERSION}`;
 const STATIC_CACHE = `pc-static-${VERSION}`;
 const MAX_STATIC = 200;
@@ -20,6 +20,7 @@ const PRECACHE_PAGES = [
   "/offline",
   "/pocket-chaplain",
   "/pocket-chaplain/take-a-moment",
+  "/breathe",
   "/reach/chaplain",
   "/reach/pastor",
   "/reach/friend",
