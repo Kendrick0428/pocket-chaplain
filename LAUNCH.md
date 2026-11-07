@@ -39,18 +39,9 @@ The Daily reminder page sends today's encouragement as a phone notification at a
 
 1. Apply `supabase/migrations/0002_push_subscriptions.sql` (adds the anonymous reminder table, locked down like the others).
 2. Generate keys once: `npx web-push generate-vapid-keys`. In the host, set `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, `VAPID_SUBJECT` (e.g. `mailto:chaplain@example.org`) and `CRON_SECRET` (a long random string).
-3. Call `https://thepocketchaplain.com/api/push/send` once an hour with the header `Authorization: Bearer <CRON_SECRET>`. Hourly is needed because people pick their own time. One way, using Supabase's built-in scheduler (enable the `pg_cron` and `pg_net` extensions first):
+3. Apply `supabase/migrations/0003_enable_cron_net.sql` and `0004_cron_token.sql`. Together they turn on Supabase's built-in scheduler and set up an hourly job that calls `/api/push/send`. The job's token is created inside the database (`private.cron_token`), and the site checks it through `cron_token_valid()`, so nobody has to copy a password. Hourly is needed because people pick their own time. If the site moves to thepocketchaplain.com, update the URL in the job (`cron.alter_job`).
 
-   ```sql
-   select cron.schedule('pocket-chaplain-reminders', '0 * * * *', $$
-     select net.http_get(
-       url := 'https://thepocketchaplain.com/api/push/send',
-       headers := jsonb_build_object('Authorization', 'Bearer <CRON_SECRET>')
-     );
-   $$);
-   ```
-
-   (Vercel's own cron also works, but its free plan only allows once a day.)
+   Any other scheduler can call the same route with `Authorization: Bearer <CRON_SECRET>`. (Vercel's own cron also works, but its free plan only allows once a day.)
 
 iPhone users must add the app to their Home Screen before notifications can be turned on; the page explains this.
 

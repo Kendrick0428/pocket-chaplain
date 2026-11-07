@@ -2,6 +2,7 @@ import "server-only";
 import { timingSafeEqual } from "crypto";
 import webpush from "web-push";
 import { dailyIndex, localDate } from "./daily";
+import { serviceClient, supabaseConfigured } from "./supabase";
 import { deletePushSubscription, getContent, listPushSubscriptions, markPushSent } from "./store";
 
 /**
@@ -33,13 +34,23 @@ export function validTimeZone(tz: string) {
   }
 }
 
-/** Checks the scheduler's `Authorization: Bearer <CRON_SECRET>` header. */
-export function cronAuthorized(header: string | null) {
+/**
+ * Checks the scheduler's `Authorization: Bearer <token>` header. The token is either
+ * CRON_SECRET from the host settings, or the one Supabase creates and keeps for its
+ * own hourly job (migration 0004), checked through a yes/no database function.
+ */
+export async function cronAuthorized(header: string | null) {
+  if (!header?.startsWith("Bearer ")) return false;
   const secret = process.env.CRON_SECRET;
-  if (!secret || !header) return false;
-  const a = Buffer.from(header);
-  const b = Buffer.from(`Bearer ${secret}`);
-  return a.length === b.length && timingSafeEqual(a, b);
+  if (secret) {
+    const a = Buffer.from(header);
+    const b = Buffer.from(`Bearer ${secret}`);
+    if (a.length === b.length && timingSafeEqual(a, b)) return true;
+  }
+  const token = header.slice(7).trim();
+  if (!supabaseConfigured || !/^[0-9a-f]{64}$/.test(token)) return false;
+  const { data, error } = await serviceClient().rpc("cron_token_valid", { candidate: token });
+  return !error && data === true;
 }
 
 const clip = (s: string, n: number) => (s.length > n ? `${s.slice(0, n - 1).trimEnd()}…` : s);
