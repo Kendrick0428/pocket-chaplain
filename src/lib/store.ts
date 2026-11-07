@@ -3,8 +3,9 @@ import { promises as fs } from "fs";
 import path from "path";
 import { randomUUID } from "crypto";
 import { seedContent } from "./seed";
+import { traditionOf } from "./faith";
 import { serviceClient, supabaseConfigured } from "./supabase";
-import type { SiteContent, Store, Submission } from "./types";
+import type { PushSubscriptionRecord, SiteContent, Store, Submission } from "./types";
 
 /**
  * All storage goes through this file.
@@ -37,6 +38,7 @@ async function sbGetContent(): Promise<SiteContent> {
       (content as unknown as Record<string, unknown>)[row.key] = row.value;
     }
   }
+  content.settings = { ...seedContent.settings, ...content.settings };
   return content;
 }
 
@@ -76,6 +78,56 @@ async function sbDelete(id: string) {
   return Boolean(count);
 }
 
+type PushRow = {
+  endpoint: string;
+  p256dh: string;
+  auth: string;
+  hour: number;
+  tz: string;
+  last_sent_on: string | null;
+  created_at: string;
+};
+
+const fromPushRow = (r: PushRow): PushSubscriptionRecord => ({
+  endpoint: r.endpoint,
+  p256dh: r.p256dh,
+  auth: r.auth,
+  hour: r.hour,
+  tz: r.tz,
+  lastSentOn: r.last_sent_on,
+  createdAt: r.created_at,
+});
+
+async function sbSavePush(sub: Omit<PushSubscriptionRecord, "createdAt" | "lastSentOn">) {
+  const { error } = await serviceClient()
+    .from("push_subscriptions")
+    .upsert({ endpoint: sub.endpoint, p256dh: sub.p256dh, auth: sub.auth, hour: sub.hour, tz: sub.tz });
+  if (error) throw new Error(`Could not save reminder: ${error.message}`);
+}
+
+async function sbDeletePush(endpoint: string) {
+  const { error } = await serviceClient().from("push_subscriptions").delete().eq("endpoint", endpoint);
+  if (error) throw new Error(error.message);
+}
+
+async function sbListPush(): Promise<PushSubscriptionRecord[]> {
+  const { data, error } = await serviceClient()
+    .from("push_subscriptions")
+    .select("endpoint, p256dh, auth, hour, tz, last_sent_on, created_at")
+    .limit(10000);
+  if (error) throw new Error(`Could not load reminders: ${error.message}`);
+  return (data ?? []).map((r) => fromPushRow(r as PushRow));
+}
+
+async function sbMarkPushSent(endpoints: string[], localDate: string) {
+  if (!endpoints.length) return;
+  const { error } = await serviceClient()
+    .from("push_subscriptions")
+    .update({ last_sent_on: localDate })
+    .in("endpoint", endpoints);
+  if (error) throw new Error(error.message);
+}
+
 // ---------------------------------------------------------------------------
 // Prototype file backend
 // ---------------------------------------------------------------------------
@@ -87,9 +139,13 @@ let writeQueue: Promise<unknown> = Promise.resolve();
 async function readStore(): Promise<Store> {
   try {
     const parsed = JSON.parse(await fs.readFile(STORE_FILE, "utf8")) as Partial<Store>;
-    return { ...structuredClone(seedContent), submissions: [], ...parsed } as Store;
+    const store = { ...structuredClone(seedContent), submissions: [], pushSubscriptions: [], ...parsed } as Store;
+    store.settings = { ...seedContent.settings, ...store.settings };
+    return store;
   } catch (err: unknown) {
-    if ((err as NodeJS.ErrnoException).code === "ENOENT") return { ...structuredClone(seedContent), submissions: [] };
+    if ((err as NodeJS.ErrnoException).code === "ENOENT") {
+      return { ...structuredClone(seedContent), submissions: [], pushSubscriptions: [] };
+    }
     throw err;
   }
 }
@@ -117,11 +173,20 @@ function mutate<T>(fn: (store: Store) => T | Promise<T>): Promise<T> {
 // Public API
 // ---------------------------------------------------------------------------
 
+/** Fills in fields added after content may already have been saved (e.g. faith tradition). */
+function normalize(content: SiteContent): SiteContent {
+  return {
+    ...content,
+    library: content.library.map((e) => ({ ...e, tradition: traditionOf(e) })),
+    encouragements: content.encouragements.map((e) => ({ ...e, tradition: traditionOf(e) })),
+  };
+}
+
 /** Public content. Never includes submissions. */
 export async function getContent(): Promise<SiteContent> {
-  if (supabaseConfigured) return sbGetContent();
-  const { submissions: _omit, ...content } = await readStore();
-  return content;
+  if (supabaseConfigured) return normalize(await sbGetContent());
+  const { submissions: _omit, pushSubscriptions: _omitPush, ...content } = await readStore();
+  return normalize(content);
 }
 
 export async function updateContent<K extends keyof SiteContent>(key: K, value: SiteContent[K]) {
@@ -161,5 +226,35 @@ export async function deleteSubmission(id: string) {
     const before = store.submissions.length;
     store.submissions = store.submissions.filter((s) => s.id !== id);
     return store.submissions.length !== before;
+  });
+}
+
+// Daily reminder subscriptions. Anonymous device addresses; never shown in the admin area.
+
+export async function savePushSubscription(sub: Omit<PushSubscriptionRecord, "createdAt" | "lastSentOn">) {
+  if (supabaseConfigured) return sbSavePush(sub);
+  return mutate((store) => {
+    const existing = store.pushSubscriptions.find((p) => p.endpoint === sub.endpoint);
+    if (existing) Object.assign(existing, sub);
+    else store.pushSubscriptions.push({ ...sub, lastSentOn: null, createdAt: new Date().toISOString() });
+  });
+}
+
+export async function deletePushSubscription(endpoint: string) {
+  if (supabaseConfigured) return sbDeletePush(endpoint);
+  return mutate((store) => {
+    store.pushSubscriptions = store.pushSubscriptions.filter((p) => p.endpoint !== endpoint);
+  });
+}
+
+export async function listPushSubscriptions(): Promise<PushSubscriptionRecord[]> {
+  if (supabaseConfigured) return sbListPush();
+  return (await readStore()).pushSubscriptions;
+}
+
+export async function markPushSent(endpoints: string[], localDate: string) {
+  if (supabaseConfigured) return sbMarkPushSent(endpoints, localDate);
+  return mutate((store) => {
+    for (const p of store.pushSubscriptions) if (endpoints.includes(p.endpoint)) p.lastSentOn = localDate;
   });
 }

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getContent } from "@/lib/store";
 import { BackLink } from "@/components/BackLink";
 import { WithPlaceholders } from "@/components/Placeholder";
+import { DepartmentCard } from "@/components/DepartmentCard";
 
 export const metadata: Metadata = { title: "About" };
 
@@ -28,6 +29,7 @@ export default async function About() {
           not therapy, medical care, or an emergency response service, and it is not monitored around the clock.
         </p>
       </section>
+      <DepartmentCard settings={settings} />
       <p>
         Questions about your information? Read the <Link href="/privacy">privacy page</Link>.
       </p>

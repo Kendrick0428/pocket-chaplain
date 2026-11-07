@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useFaith } from "@/lib/device";
 
 type Phase = "idle" | "in" | "hold" | "out" | "done";
 
@@ -11,7 +12,14 @@ const STEPS: { phase: Exclude<Phase, "idle" | "done">; label: string; seconds: n
 ];
 const ROUNDS = 4;
 
-export function TakeAMoment({ prayer }: { prayer: string }) {
+/**
+ * `prayer` is shown to people who chose Christian or haven't chosen a faith;
+ * everyone else gets `reflection`, a closing thought without religious language.
+ */
+export function TakeAMoment({ prayer, reflection }: { prayer: string; reflection: string }) {
+  const { faith } = useFaith();
+  const usePrayer = faith === "" || faith === "christian";
+  const closing = usePrayer ? prayer : reflection;
   const [phase, setPhase] = useState<Phase>("idle");
   const [round, setRound] = useState(0);
   const [count, setCount] = useState(0);
@@ -88,7 +96,7 @@ export function TakeAMoment({ prayer }: { prayer: string }) {
             ) : (
               <>
                 <button type="button" className="btn secondary" onClick={start}>Again</button>
-                {!showPrayer && <button type="button" className="btn" onClick={() => setShowPrayer(true)}>Pray with me</button>}
+                {!showPrayer && <button type="button" className="btn" onClick={() => setShowPrayer(true)}>{usePrayer ? "Pray with me" : "A closing thought"}</button>}
               </>
             )}
           </div>
@@ -97,14 +105,14 @@ export function TakeAMoment({ prayer }: { prayer: string }) {
 
       {phase !== "idle" && !active && showPrayer && (
         <div ref={prayerRef} tabIndex={-1} style={{ marginTop: 20, textAlign: "left" }}>
-          <h2>A short prayer</h2>
-          <p style={{ fontFamily: "var(--font-serif)", fontSize: "1.15rem" }}>{prayer}</p>
+          <h2>{usePrayer ? "A short prayer" : "A closing thought"}</h2>
+          <p style={{ fontFamily: "var(--font-serif)", fontSize: "1.15rem" }}>{closing}</p>
         </div>
       )}
 
       {phase === "idle" && (
         <p className="small muted" style={{ marginTop: 16, marginBottom: 0 }}>
-          Prefer to skip the breathing? <button type="button" className="linklike" onClick={() => { setPhase("done"); setShowPrayer(true); }} style={{ background: "none", border: 0, color: "var(--link)", textDecoration: "underline", font: "inherit", cursor: "pointer", padding: 0 }}>Go straight to the prayer</button>.
+          Prefer to skip the breathing? <button type="button" className="linklike" onClick={() => { setPhase("done"); setShowPrayer(true); }} style={{ background: "none", border: 0, color: "var(--link)", textDecoration: "underline", font: "inherit", cursor: "pointer", padding: 0 }}>{usePrayer ? "Go straight to the prayer" : "Go straight to the closing thought"}</button>.
         </p>
       )}
     </div>

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { ListEditor } from "@/components/admin/ListEditor";
 import { getContent } from "@/lib/store";
-import { ENTRY_TYPES, TOPICS } from "@/lib/types";
+import { ENTRY_TYPES, TOPICS, TRADITIONS } from "@/lib/types";
 import { saveLibrary } from "../actions";
 
 export const metadata: Metadata = { title: "Pocket Chaplain library", robots: { index: false } };
@@ -12,7 +12,7 @@ export default async function Page() {
   return (
     <AdminShell current="/admin/library">
       <h2>Pocket Chaplain library</h2>
-      <p className="small muted">Prayers, scripture, reflections, and encouragement. Each entry needs a title, text, and at least one situation.</p>
+      <p className="small muted">Prayers, scripture, reflections, and encouragement. Each entry needs a title, text, and at least one situation. People who choose a faith under &ldquo;My faith&rdquo; see that tradition&rsquo;s entries plus entries for everyone.</p>
       <ListEditor
         initial={library as never}
         noun="entry"
@@ -23,6 +23,10 @@ export default async function Page() {
         fields={[
           { key: "title", label: "Title", kind: "text", required: true },
           { key: "type", label: "Type", kind: "select", options: [...ENTRY_TYPES], required: true },
+          {
+            key: "tradition", label: "Faith tradition", kind: "select", options: [...TRADITIONS], required: true,
+            hint: "Who should see this. \"Everyone\" is for text without religious language. Ask a leader of that faith to write or approve tradition-specific content.",
+          },
           { key: "topics", label: "Situations", kind: "checks", options: [...TOPICS] },
           { key: "body", label: "Text", kind: "textarea", required: true, hint: "Leave a blank line between paragraphs." },
           { key: "reference", label: "Scripture reference", kind: "text", hint: "e.g. Psalm 23:1–4" },

@@ -31,13 +31,17 @@ cp .env.example .env.local   # then edit both values
 | Home | `/` | "Support for those who serve," daily encouragement, three large Reach buttons, Prayer, Pocket Chaplain, Share an Idea |
 | Reach a Chaplain | `/reach/chaplain` | Call/Text buttons when an admin has set a number; follow-up request form always available |
 | Reach My Pastor / a Friend | `/reach/pastor`, `/reach/friend` | Name + phone saved **only in the officer's browser** (localStorage). Never sent to the server; admins can't see it |
-| Pocket Chaplain | `/pocket-chaplain` | Searchable library, filter by situation |
+| Pocket Chaplain | `/pocket-chaplain` | Searchable library, filter by situation; **My faith** picker (Christian, Jewish, Muslim, Buddhist, Hindu, another faith, or no religious preference; saved on the device) shows that tradition's entries plus entries for everyone; **Save** any entry as a favorite (kept on the device; `?topic=saved` shows them) |
+| How am I doing? | `/check-in` | Private check-in with suggestions; "Not okay" goes straight to 988/911 and Reach buttons. Answers stay on the device; optional on-device history |
+| For families | `/family` | Prayers for spouses and children (library entries tagged "For spouses & families"), family resources, chaplain access |
+| Daily reminder | `/reminder` | Optional daily notification of today's encouragement (Web Push, see LAUNCH.md §5) or a calendar reminder built on the device |
+| Offline | `public/sw.js` | Installable on the home screen; main pages and contacts work without a signal (production builds only). Never caches `/admin` or `/api` |
 | Take a moment | `/pocket-chaplain/take-a-moment` | Guided breathing (4-4-6, four breaths) and optional prayer; respects reduced-motion |
 | Prayer | `/prayer` | Anonymous option, "chaplain team only" or "approved prayer group," sensitive-info reminder |
 | Share an Idea | `/share-an-idea` | Anonymous option, confirmation on submit |
 | Resources | `/resources` | Chaplain, peer, grief, counseling, family, crisis |
 | Privacy / About | `/privacy`, `/about` | Plain-language privacy notice; what the app is and isn't |
-| Admin | `/admin` | Review/mark/archive/delete submissions; edit chaplain contact, encouragements, library, resources, department name, prototype banner |
+| Admin | `/admin` | Review/mark/archive/delete submissions; edit chaplain contact, encouragements, library, resources, department name, badge and contact details, prototype banner |
 
 Call and Text use `tel:` and `sms:` links, which open the phone's own dialer or messages app; nothing is dialed or sent automatically. The 911/988 notice appears in the footer of every page.
 
@@ -45,7 +49,7 @@ Call and Text use `tel:` and `sms:` links, which open the phone's own dialer or 
 
 Everything in `[square brackets]` is a placeholder and is highlighted on screen. Replace them from the admin area:
 
-- **Settings:** department name
+- **Settings:** department name, plus an optional department badge (shown beside The Pocket Chaplain logo) and precinct/office address, phone, email and website (shown in a "Your department" box on Home and About)
 - **Chaplain contact:** name, call/text numbers, availability
 - **Resources:** department chaplain program, peer support team, EAP, local grief group, counselor, family network. COPLINE, 988, and 911 are filled in; verify before launch.
 - **Privacy page:** privacy contact and "last updated" date (in `src/app/privacy/page.tsx`)

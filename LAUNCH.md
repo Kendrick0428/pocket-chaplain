@@ -33,9 +33,30 @@ In Supabase mode, each admin signs in with their own email and password.
 - Verify every phone number and resource.
 - Optional: email/text alerts to the chaplain when a follow-up request arrives.
 
+## 5. Daily reminders (optional)
+
+The Daily reminder page sends today's encouragement as a phone notification at a time each person picks. Without this setup the page still offers a calendar reminder, so nothing breaks if you skip it.
+
+1. Apply `supabase/migrations/0002_push_subscriptions.sql` (adds the anonymous reminder table, locked down like the others).
+2. Generate keys once: `npx web-push generate-vapid-keys`. In the host, set `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, `VAPID_SUBJECT` (e.g. `mailto:chaplain@example.org`) and `CRON_SECRET` (a long random string).
+3. Call `https://thepocketchaplain.com/api/push/send` once an hour with the header `Authorization: Bearer <CRON_SECRET>`. Hourly is needed because people pick their own time. One way, using Supabase's built-in scheduler (enable the `pg_cron` and `pg_net` extensions first):
+
+   ```sql
+   select cron.schedule('pocket-chaplain-reminders', '0 * * * *', $$
+     select net.http_get(
+       url := 'https://thepocketchaplain.com/api/push/send',
+       headers := jsonb_build_object('Authorization', 'Bearer <CRON_SECRET>')
+     );
+   $$);
+   ```
+
+   (Vercel's own cron also works, but its free plan only allows once a day.)
+
+iPhone users must add the app to their Home Screen before notifications can be turned on; the page explains this.
+
 ## What stays private by design
 
-Pastor and friend contacts are stored only in the officer's browser and never touch the server. Nothing changes here for launch.
+Pastor and friend contacts, saved prayers, and "How am I doing?" check-ins are stored only in the officer's browser and never touch the server. Nothing changes here for launch.
 
 ## Your Supabase project (created 2026-10-13)
 
