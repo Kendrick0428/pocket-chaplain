@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "The Pocket Chaplain",
     short_name: "Pocket Chaplain",
     description: "Support for those who serve.",
-    start_url: "/",
+    start_url: "/home",
     display: "standalone",
     background_color: "#0b1730",
     theme_color: "#0b1730",

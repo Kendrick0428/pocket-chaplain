@@ -179,7 +179,7 @@ export async function saveSettings(_prev: AdminState, fd: FormData): Promise<Adm
     prototypeMode: fd.get("prototypeMode") === "on",
   };
   await updateContent("settings", settings);
-  return done(["/", "/about", "/admin/settings"]);
+  return done(["/home", "/about", "/admin/settings"]);
 }
 
 export async function saveChaplain(_prev: AdminState, fd: FormData): Promise<AdminState> {
@@ -218,7 +218,7 @@ export async function saveEncouragements(_prev: AdminState, fd: FormData): Promi
     .map((x) => ({ id: id(x.id), text: str(x.text, 600), reference: str(x.reference, 120), tradition: tradition(x.tradition) }))
     .filter((x) => x.text);
   await updateContent("encouragements", list);
-  return done(["/", "/admin/encouragements"]);
+  return done(["/home", "/admin/encouragements"]);
 }
 
 export async function saveLibrary(_prev: AdminState, fd: FormData): Promise<AdminState> {

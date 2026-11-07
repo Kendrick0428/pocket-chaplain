@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { Logo } from "./Icons";
 
 const NAV = [
-  { href: "/", label: "Home" },
+  { href: "/home", label: "Home" },
   { href: "/reach/chaplain", label: "Reach a Chaplain" },
   { href: "/pocket-chaplain", label: "Pocket Chaplain" },
   { href: "/prayer", label: "Prayer" },
@@ -21,12 +21,12 @@ export function SiteHeader({ appName, departmentName }: { appName: string; depar
 
   useEffect(() => setOpen(false), [pathname]);
 
-  const isCurrent = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
+  const isCurrent = (href: string) => (href === "/home" ? pathname === "/home" : pathname.startsWith(href));
 
   return (
     <header className="site-header">
       <div className="container">
-        <Link href="/" className="brand" aria-label={`${appName}, home`}>
+        <Link href="/home" className="brand" aria-label={`${appName}, home`}>
           <Logo size={44} />
           <span>
             {appName}

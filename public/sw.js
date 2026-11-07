@@ -9,14 +9,14 @@
  * - Shows the optional daily reminder notification.
  */
 
-const VERSION = "v1";
+const VERSION = "v2";
 const PAGES_CACHE = `pc-pages-${VERSION}`;
 const STATIC_CACHE = `pc-static-${VERSION}`;
 const MAX_STATIC = 200;
 const NETWORK_TIMEOUT_MS = 4000;
 
 const PRECACHE_PAGES = [
-  "/",
+  "/home",
   "/offline",
   "/pocket-chaplain",
   "/pocket-chaplain/take-a-moment",
@@ -164,7 +164,7 @@ self.addEventListener("push", (event) => {
 
 self.addEventListener("notificationclick", (event) => {
   event.notification.close();
-  const target = new URL(event.notification.data?.url || "/", self.location.origin).href;
+  const target = new URL(event.notification.data?.url || "/home", self.location.origin).href;
   event.waitUntil(
     (async () => {
       const windows = await self.clients.matchAll({ type: "window", includeUncontrolled: true });
