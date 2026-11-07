@@ -49,6 +49,11 @@ export default async function Home() {
           </Link>
         </nav>
 
+        <Link href="/breathe" className="breathe-link">
+          <span className="dot" aria-hidden="true" />
+          <span><span className="t">Breathe with me</span><span className="s">Tap, and a circle breathes in and out with you</span></span>
+        </Link>
+
         <h2 className="section-title" id="more-heading">Find a moment</h2>
         <nav className="tile-grid" aria-labelledby="more-heading">
           <Link href="/prayer" className="tile">

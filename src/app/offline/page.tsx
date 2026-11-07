@@ -12,6 +12,7 @@ export default function Offline() {
       <p className="page-intro">This page hasn&apos;t been saved on your phone yet. These still work without a connection:</p>
       <ul className="suggest">
         <li><Link href="/pocket-chaplain">Pocket Chaplain prayers and readings</Link></li>
+        <li><Link href="/breathe">Breathe with me</Link></li>
         <li><Link href="/pocket-chaplain/take-a-moment">Take a moment</Link></li>
         <li><Link href="/reach/pastor">Reach My Pastor</Link> and <Link href="/reach/friend">Reach a Friend</Link></li>
         <li><Link href="/check-in">How am I doing?</Link></li>
