@@ -4,6 +4,7 @@ import { getContent } from "@/lib/store";
 import { BackLink } from "@/components/BackLink";
 import { WithPlaceholders } from "@/components/Placeholder";
 import { DepartmentCard } from "@/components/DepartmentCard";
+import { edition } from "@/lib/edition";
 
 export const metadata: Metadata = { title: "About" };
 
@@ -14,7 +15,7 @@ export default async function About() {
       <BackLink />
       <h1>About {settings.appName}</h1>
       <p className="page-intro">
-        {settings.appName} is for the officers, staff, and families of <WithPlaceholders text={settings.departmentName} />.
+        {settings.appName} is for the {edition.audience} of <WithPlaceholders text={settings.departmentName} />.
         It offers prayer, encouragement, and an easy way to reach the people who care about you.
       </p>
       <section className="card">

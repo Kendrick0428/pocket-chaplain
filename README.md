@@ -24,6 +24,16 @@ To set your own password (required for `npm run build && npm start` or any share
 cp .env.example .env.local   # then edit both values
 ```
 
+## Fire & Rescue edition
+
+The same code also runs **Pocket Chaplain: Fire & Rescue**: fire-service prayers and library content (line-of-duty loss, hard calls, long shifts, family strain, burnout), fire-service resources, and a red/ember accent on the navy design. Deploy it as its own site with its own database and set:
+
+```bash
+NEXT_PUBLIC_EDITION=fire
+```
+
+Starter content is in `src/lib/seed-fire.ts`; edition wording is in `src/lib/edition.ts`. Leave the variable unset for the law-enforcement edition.
+
 ## What's included
 
 | Screen | Path | Notes |

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { AdminForm } from "@/components/admin/AdminForm";
 import { BadgeUpload } from "@/components/admin/BadgeUpload";
+import { edition } from "@/lib/edition";
 import { getContent } from "@/lib/store";
 import { saveSettings } from "../actions";
 
@@ -26,7 +27,7 @@ export default async function Page() {
           <h3 style={{ marginTop: 24 }}>Department contact</h3>
           <p className="small muted">Optional. Shown in a &ldquo;Your department&rdquo; box on the home and About pages. Leave blank to hide.</p>
           <div className="form-field">
-            <label htmlFor="s-addr">Precinct or office address <span className="muted">(optional)</span></label>
+            <label htmlFor="s-addr">{edition.addressLabel} <span className="muted">(optional)</span></label>
             <textarea id="s-addr" name="departmentAddress" defaultValue={s.departmentAddress} maxLength={300} style={{ minHeight: 80 }} />
           </div>
           <div className="grid-2">
